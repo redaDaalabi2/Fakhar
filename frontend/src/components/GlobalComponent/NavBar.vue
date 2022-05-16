@@ -17,7 +17,7 @@
                 <router-link class="routenav" to="/ContactView">Contact</router-link>
             </li>
             <li>
-                <router-link class="routenav" to="/">
+                <router-link class="routenav" to="/RegisterView">
                     Compte
                     <i class="fa-solid fa-caret-down"></i>
                 </router-link>
@@ -73,7 +73,7 @@ nav {
             text-decoration: none;
             position: relative;
             color: black;
-            padding: 0 30px;
+            padding: 5px 30px;
             overflow: hidden;
         }
         i {
@@ -82,10 +82,10 @@ nav {
     }
 }
 .mainmenu div{
-    width: 60px;
-    height: 10px;
+    width: 50px;
+    height: 5px;
     background-color: black;
-    margin-block: 12px;
+    margin-block: 10px;
     display: none;
     @include mobile{
         display: block;

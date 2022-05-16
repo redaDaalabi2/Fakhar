@@ -1,12 +1,13 @@
 <template>
-    <Accueil />
+    <Register />
 </template>
 
 <script>
-import Accueil from "../components/Accueil.vue";
+import Register from "../components/Register.vue";
 export default {
+    name: "RegisterView",
     components: {
-        Accueil
+        Register,
     }
 }
 </script>
