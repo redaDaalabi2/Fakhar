@@ -18,7 +18,7 @@
             $this->data = json_decode(file_get_contents("php://input"));
         }
 
-        public function sign_up()
+        public function register_client()
         {
 
             $this->utilisateur->email = $this->data->email;
@@ -38,7 +38,44 @@
             }
 
             if ($bol) {
-                if ($this->utilisateur->create()) {
+                if ($this->utilisateur->create_client()) {
+
+                    echo json_encode(array(
+                        'message' => 'Compte créé avec succès',
+                        'state' => true
+                    ));
+                } else {
+                    echo json_encode(array(
+                        'message' => 'error',
+                        'state' => false
+                    ));
+                }
+            } else {
+                echo json_encode(array(
+                    'message' => 'ce mail existe déjà',
+                    'state' => false
+                ));
+            }
+        }
+
+        public function register_admin()
+        {
+
+            $this->utilisateur->email = $this->data->email;
+            $this->utilisateur->motdepasse = password_hash($this->data->motdepasse, PASSWORD_DEFAULT);
+
+            $this->utilisateur->nom = $this->data->nom;
+            $this->utilisateur->prenom = $this->data->prenom;
+
+            $bol = true;
+            $rowCount = $this->utilisateur->checkemail();
+
+            if ($rowCount >= 1) {
+                $bol = false;
+            }
+
+            if ($bol) {
+                if ($this->utilisateur->create_admin()) {
 
                     echo json_encode(array(
                         'message' => 'Compte créé avec succès',

@@ -5,26 +5,66 @@
         <form action="" class="form-group">
             <div class="groupeone">
                 <div class="formone">
-                    <input required type="text" class="form-control" placeholder="Nom">
-                    <input required type="text" class="form-control" placeholder="Prenom">
-                    <input required type="email" class="form-control" placeholder="E-mail">
-                    <input required type="phone" class="form-control" placeholder="Telephone">
+                    <input type="text" class="form-control" placeholder="Nom" v-model="nom">
+                    <input type="text" class="form-control" placeholder="Prenom" v-model="prenom">
+                    <input type="email" class="form-control" placeholder="E-mail" v-model="email">
+                    <input type="phone" class="form-control" placeholder="Telephone" v-model="telephone">
                 </div>
                 <div class="formtwo">
-                    <textarea name="" class="form-control" placeholder="Message" id="" cols="22" rows="12.5"></textarea>
+                    <textarea type="text" class="form-control" placeholder="Message" id="" cols="22" rows="12.5" v-model="message"></textarea>
                 </div>
             </div>
             <div class="groupetwo">
-                <input class="formtree" type="submit" value="Envoyer">
+                <input class="formtree" type="submit" value="Envoyer" @click.prevent="contacter">
             </div>
         </form>
     </section>
 </template>
 
 <script>
-
+import axios from "axios";
+import swal from 'sweetalert';
 export default {
     name: "Con-tact",
+    data() {
+        return {
+            nom: "",
+            prenom : "",
+            email : "",
+            telephone : "",
+            message : ""
+        };
+    },
+    methods : {
+        contacter() {
+            if(this.nom != "" && this.prenom != "" && this.email != "" && this.telephone != "" && this.message != ""){
+                axios.post('http://localhost/Fakhar/Contacte/contacter', {
+                    nom: this.nom,
+                    prenom: this.prenom,
+                    email: this.email,
+                    telephone: this.telephone,
+                    message: this.message
+                })
+                .then(() => {
+                    swal({
+                        title: "contacte Successfuly",
+                        text: "Plz visiter le magasin pour découvrez les dernier poterie",
+                        icon: "success",
+                        button: "ok",
+                    });
+                })
+                this.$router.push('/');
+            }
+            {
+                swal({
+                    title: "Something Wrong",
+                    text: "plz remplir tous les champs",
+                    icon: "error",
+                    button: "ok",
+                });
+            }
+        }
+    }
 }
 </script>
 

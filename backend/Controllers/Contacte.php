@@ -1,9 +1,9 @@
 <?php
-    class Contacte {
 
+    class Contacte {
+     
         public $db;
         public $data;
-
         public function __construct()
         {
             // instantiate database

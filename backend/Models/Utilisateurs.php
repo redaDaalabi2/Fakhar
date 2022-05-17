@@ -16,6 +16,8 @@
         public $genre;
         public $Telephone;
         public $adresse;
+        //admin properties
+        public $id_Admin;
 
         public function __construct($db)
         {
@@ -41,7 +43,7 @@
                 return $rowCount;
             }
         }
-        public function create()
+        public function create_client()
         {
             $sql = " INSERT INTO utilisateurs (role, email , motdepasse) VALUES ('client' , :email , :motdepasse)";
 
@@ -86,6 +88,47 @@
             }
             return false;
         }
+
+        public function create_admin()
+        {
+            $sql = " INSERT INTO utilisateurs (role, email , motdepasse) VALUES ('admin' , :email , :motdepasse)";
+
+            // Clean data
+            $this->email = htmlspecialchars(strip_tags($this->email));
+            $this->motdepasse = htmlspecialchars(strip_tags($this->motdepasse));
+
+            // Prepare query
+            $stmt = $this->conn->prepare($sql);
+
+            // Bind data
+            $stmt->bindParam(':email', $this->email);
+            $stmt->bindParam(':motdepasse', $this->motdepasse);
+
+            $stmt->execute();
+
+            //get the last id from visitor table
+            $last_id  = $this->conn->lastInsertId();
+
+
+            $sql2 = "INSERT INTO admin (nom, prenom, id_Admin) 
+                VALUES (:nom, :prenom, " . $last_id . ")";
+
+            // clean client informations
+            $this->nom = htmlspecialchars(strip_tags($this->nom));
+            $this->prenom = htmlspecialchars(strip_tags($this->prenom));
+
+            $stmt1 = $this->conn->prepare($sql2);
+
+            // bind data
+            $stmt1->bindParam(':nom', $this->nom);
+            $stmt1->bindParam(':prenom', $this->prenom);
+
+            if ($stmt1->execute()) {
+                return true;
+            }
+            return false;
+        }
+
         /* login  */
         public function login()
         {
