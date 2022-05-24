@@ -158,8 +158,6 @@ export default {
                     background-color: white;
                     border: 1px solid $main-color;
                     color: $main-color;
-                    // cursor: pointer;
-                    // margin: 0px;
                 }
             }
         }
@@ -250,7 +248,6 @@ export default {
                     border: 1px solid $main-color;
                     color: $main-color;
                     cursor: pointer;
-                    // font-weight: bold;
                     margin: 0px;
                 }
             }

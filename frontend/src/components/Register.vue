@@ -14,11 +14,11 @@
                             <label for="name"><i class="fa-solid fa-user"></i></label>
                             <input type="text" name="prenom" placeholder="Prenom">
                         </div>
-                        <!-- <label for="genre" class="label-select"><i class="fa-solid fa-venus-mars"></i></label> -->
+                        <i class="fa-solid fa-venus-mars label-select"></i>
                         <select class="form-group">
-                            <option value="">Sélectionnez le genre</option>
-                            <option value="">Homme</option>
-                            <option value="">Femme</option>
+                            <option class="option-select" value="">Sélectionnez le genre</option>
+                            <option class="option-select" value="">Homme</option>
+                            <option class="option-select" value="">Femme</option>
                         </select>
                         <div class="form-group">
                             <label for="Telephone"><i class="fa-solid fa-phone"></i></label>
@@ -39,7 +39,7 @@
                         <div class="form-button">
                             <input type="submit" name="signup" id="signup" class="form-submit" value="Register">
                         </div>
-                        <div class="form-group">
+                        <div class="form-link">
                             <router-link to="/">je suis déjà membre</router-link>
                         </div>
                     </form>
@@ -65,8 +65,8 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/_mixin.scss";
 .parent {
-    margin-left: 40vh;
-    margin-right: 40vh;
+    margin-inline: 40vh;
+    // margin-block: 100vh;
     .container {
         background: #fff;
         margin: 0px auto;
@@ -78,7 +78,7 @@ export default {
         }
         .signup-content {
             display: flex;
-            padding: 75px 0;
+            padding: 75px 0px;
             .signup-form {
                 margin-left: 75px;
                 margin-right: 75px;
@@ -116,6 +116,14 @@ export default {
                             .form-group:last-child {
                                 margin-bottom: 0px;
                             }
+                            .option-select {
+                                padding-block: 10px;
+                            }
+                        }
+                        .label-select {
+                            position: absolute;
+                            top: 64vh;
+                            z-index: 1;
                         }
                         select {
                             width: 100%;
@@ -136,13 +144,11 @@ export default {
                             background: $main-color;
                             border: 1px solid white;
                             color: white;
-                            width: auto;
                             padding: 15px 39px;
                             border-radius: 5px;
-                            margin-top: 25px;
                             cursor: pointer;
                             font-weight: bold;
-                            width: 100%;
+                            width: 30%;
                             &:hover {
                                 background-color: white;
                                 border: 1px solid $main-color;
@@ -150,6 +156,9 @@ export default {
                                 cursor: pointer;
                             }
                         }
+                    }
+                    .form-link {
+                        padding-top: 25px;
                     }
                 }
                 .signup-image {

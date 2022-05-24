@@ -17,10 +17,10 @@
                 <router-link class="routenav" to="/ContactView">Contact</router-link>
             </li>
             <li>
-                <router-link class="routenav" to="/RegisterView">
-                    Compte
-                    <i class="fa-solid fa-caret-down"></i>
-                </router-link>
+                <router-link class="routenav registernav" to="/RegisterView">Register</router-link>
+            </li>
+            <li>
+                <router-link class="routenav loginnav" to="/RegisterView">Login</router-link>
             </li>
         </ul>
     </nav>
@@ -56,28 +56,66 @@ nav {
     z-index: 999;
     top: 0;
     width: 100%;
+    box-shadow: 0 0 10px #ddd;
     img {
         width: 6rem;
     }
 .navbar {
         display: flex ;
-        align-items: center;
-        justify-content: flex-end;
-        @include mobile{
+        @media (max-width: 810px){
             display: none;
         }
         .routenav {
+            text-decoration: none;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-decoration: none;
+            height: 60px;
             position: relative;
             color: black;
-            padding: 5px 30px;
+            padding: 0 30px;
+            transition: $--main-transition;
             overflow: hidden;
+            margin-right: 10px;
+            &::before {
+                content: " ";
+                position: absolute;
+                width: 100%;
+                height: 4px;
+                background-color: $main-color;
+                top: 0;
+                left: -100%;
+                transition: $--main-transition;
+            }
+            &:hover {
+                color: $main-color;
+                background-color: #fafafa;
+                font-weight: 500;
+            }
+            &:hover::before {
+                left: 0;
+            }
+            @media (max-width: 810px) {
+                margin-block: 10px;
+                margin-right: 0px;
+            }
         }
-        i {
-            margin-left: 4px;
+        .registernav {
+            background-color: $main-color;
+            border-radius: 5px;
+            margin-right: 10px;
+            @media (max-width: 810px) {
+                margin-block: 10px;
+                margin-right: 0px;
+                padding-inline: 28px;
+            } 
+        }
+        .loginnav {
+            background-color: $main-color;
+            border-radius: 5px;
+            @media (max-width: 810px) {
+                padding-inline: 38px;
+            } 
         }
     }
 }
@@ -87,7 +125,7 @@ nav {
     background-color: black;
     margin-block: 10px;
     display: none;
-    @include mobile{
+    @media (max-width: 810px){
         display: block;
         cursor: pointer;
     }
@@ -98,7 +136,5 @@ nav {
     flex-direction: column;
     width: 100%;
     z-index: 1111;
-    gap: 2rem;
-    padding-block: 10px;
 }
 </style>
