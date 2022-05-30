@@ -1,23 +1,25 @@
 <template>
     <section>
+        <div class="backcontact">
         <center class="titre">Contact</center>
         <div class="line"></div>
         <form action="" class="form-group">
             <div class="groupeone">
                 <div class="formone">
-                    <input type="text" class="form-control" placeholder="Nom" v-model="nom">
-                    <input type="text" class="form-control" placeholder="Prenom" v-model="prenom">
-                    <input type="email" class="form-control" placeholder="E-mail" v-model="email">
-                    <input type="phone" class="form-control" placeholder="Telephone" v-model="telephone">
+                    <input type="text" class="form-control" placeholder="Nom *" v-model="nom">
+                    <input type="text" class="form-control" placeholder="Prenom *" v-model="prenom">
+                    <input type="email" class="form-control" placeholder="E-mail *" v-model="email">
+                    <input type="phone" class="form-control" placeholder="Telephone *" v-model="telephone">
                 </div>
                 <div class="formtwo">
-                    <textarea type="text" class="form-control" placeholder="Message" id="" cols="22" rows="12.5" v-model="message"></textarea>
+                    <textarea type="text" class="form-control" placeholder="Message *" id="" cols="22" rows="12.5" v-model="message"></textarea>
                 </div>
             </div>
             <div class="groupetwo">
                 <input class="formtree" type="submit" value="Envoyer" @click.prevent="contacter">
             </div>
         </form>
+        </div>
     </section>
 </template>
 
@@ -58,7 +60,7 @@ export default {
             {
                 swal({
                     title: "Something Wrong",
-                    text: "plz remplir tous les champs",
+                    text  : "plz remplir tous les champs",
                     icon: "error",
                     button: "ok",
                 });
@@ -71,15 +73,22 @@ export default {
 <style scoped lang="scss">
 @import "../sass/_mixin.scss";
 section {
-    margin-block: 13vh;
-    padding-block: 7vh;
+    width: 100%;
+    min-height: 100vh;
+    background: url('../assets/header-page-contact.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin-top: 13vh;
+    padding-top: 12vh;
     padding-left: 40px;
     padding-right: 40px;
     .titre {
-        color: $alt-color;
+        color: white;
         margin: 25px 0px 5px 0px;
         font-size: 25px;
         font-weight: bold;
+        padding-top: 25px;
         @include tablet {
             font-size: 20px;
         }
@@ -123,7 +132,7 @@ section {
                 flex-direction: column;
                 gap: 2rem;
                 .form-control {
-                    border: 1px solid #f0f0ee !important;
+                    border: 1px solid $main-color !important;
                     outline: none;
                     width: 100%;
                     padding: 8px 15px;
@@ -135,7 +144,7 @@ section {
             }
             .formtwo {
                 .form-control {
-                    border: 1px solid #f0f0ee!important;
+                    border: 1px solid $main-color !important;
                     outline: none;
                     width: 100%;
                     padding: 8px 15px;
@@ -151,7 +160,7 @@ section {
             }
         }
         .groupetwo {
-
+            margin-bottom: 25px;
             .formtree {
                 padding: 10px 25px;  
                 background-color: $main-color;

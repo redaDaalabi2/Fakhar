@@ -1,181 +1,200 @@
 <template>
-    <!-- <br><br><br><br><br><br> -->
-    <section class="parent">
-        <div class="container">
-            <div class="signup-content">
-                <div class="signup-form">
-                    <h2 class="form-title">Register</h2>
-                    <form method="" class="register-form">
-                        <div class="form-group">
-                            <label for="name"><i class="fa-solid fa-user"></i></label>
-                            <input type="text" name="nom" placeholder="Nom">
-                        </div>
-                        <div class="form-group">
-                            <label for="name"><i class="fa-solid fa-user"></i></label>
-                            <input type="text" name="prenom" placeholder="Prenom">
-                        </div>
-                        <i class="fa-solid fa-venus-mars label-select"></i>
-                        <select class="form-group">
-                            <option class="option-select" value="">Sélectionnez le genre</option>
-                            <option class="option-select" value="">Homme</option>
-                            <option class="option-select" value="">Femme</option>
-                        </select>
-                        <div class="form-group">
-                            <label for="Telephone"><i class="fa-solid fa-phone"></i></label>
-                            <input type="phone" name="Telephone" placeholder="Telephone">
-                        </div>
-                        <div class="form-group">
-                            <label for="adresse"><i class="fa-solid fa-address-book"></i></label>
-                            <input type="text" name="adresse" placeholder="Address">
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><i class="fa-solid fa-envelope"></i></label>
-                            <input type="email" name="email" placeholder="E-mail">
-                        </div>
-                        <div class="form-group">
-                            <label for="pass"><i class="fa-solid fa-lock"></i></label>
-                            <input type="password" name="motdepasse" placeholder="Mot de passe">
-                        </div>
-                        <div class="form-button">
-                            <input type="submit" name="signup" id="signup" class="form-submit" value="Register">
-                        </div>
-                        <div class="form-link">
-                            <router-link to="/">je suis déjà membre</router-link>
-                        </div>
-                    </form>
+    <!-- Register form -->
+    <section class="register">
+        <div class="register-form">
+            <div class="content-form" >
+            <h2 class="form-title">Register</h2>
+            <form @submit.prevent="register_client" class="register-form" id="register-form">
+                <div class="form-group">
+                    <label for="name"><i class="fa-solid fa-user"></i></label>
+                    <input required type="text" name="nom" placeholder="Nom" v-model="nom">
                 </div>
-                <!-- <div class="signup-image">
-                    <figure><img src="@/assets/signup-image.jpg" alt="sing up image"></figure>
-                    <a href="#" class="signup-image-link">je suis déjà membre</a>
-                </div> -->
+                <div class="form-group">
+                    <label for="name"><i class="fa-solid fa-user"></i></label>
+                    <input required type="text" name="prenom" placeholder="Prenom" v-model="prenom">
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-venus-mars label-select" style="margin-top: 6px;"></i>
+                <select v-model="genre">
+                    <option class="option-select" disabled value="">Sélectionnez le genre</option>
+                    <option class="option-select" value="">Homme</option>
+                    <option class="option-select" value="">Femme</option>
+                </select>
+                </div>
+                <div class="form-group">
+                    <label for="Telephone"><i class="fa-solid fa-phone"></i></label>
+                    <input required type="phone" name="Telephone" placeholder="Telephone" v-model="Telephone">
+                </div>
+                <div class="form-group">
+                    <label for="adresse"><i class="fa-solid fa-address-book"></i></label>
+                    <input required type="text" name="adresse" placeholder="Address" v-model="adresse">
+                </div>
+                <div class="form-group">
+                    <label for="email"><i class="fa-solid fa-envelope"></i></label>
+                    <input required type="email" name="email" placeholder="E-mail" v-model="email">
+                </div>
+                <div class="form-group">
+                    <label for="pass"><i class="fa-solid fa-lock"></i></label>
+                    <input required type="password" name="motdepasse" placeholder="Mot de passe" v-model="motdepasse">
+                </div>
+                <div class="form-button">
+                    <input type="submit" name="register" id="register" class="form-submit" value="Register"/>
+                </div>
+                <div class="form-group">
+                    <router-link to="/LoginView" class="register-image-link">je suis déjà membre</router-link>
+                </div>
+            </form>
             </div>
         </div>
     </section>
-    <!-- <br><br> -->
 </template>
 
 <script>
+import swal from 'sweetalert';
+import axios from "axios";
 export default {
     name: "Regi-ster",
+    data(){
+        return {
+            client: {
+                nom: '',
+                prenom: '',
+                genre: '',
+                Telephone: '',
+                adresse: '',
+                email: '',
+                motdepasse: '',
+            }
+        };
+    },
+    methods: {
+        register_client(){
+            if(this.nom != '' && this.prenom != '' && this.genre != '' && this.Telephone != '' && this.adresse != '' && this.email != '' && this.motdepasse != ''){
+                axios.post('http://localhost/Fakhar/Utilisateur/register_client', this.client)
+                .then(response => {
+                    if(response.data.success){
+                        swal({
+                            title: "Success",
+                            text: "Votre compte a été créé avec succès",
+                            icon: "success",
+                            button: "OK",
+                        });
+                        this.$router.push('/LoginView');
+                    }else{
+                        swal({
+                            title: "Error",
+                            text: "Votre compte n'a pas été créé",
+                            icon: "error",
+                            button: "OK",
+                        });
+                    }
+                })
+            }
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "../sass/_mixin.scss";
-.parent {
-    margin-inline: 40vh;
-    // margin-block: 100vh;
-    .container {
-        background: #fff;
-        margin: 0px auto;
-        box-shadow: 0px 15px 16.83px 0.17px rgb(0 0 0 / 5%);
-        border-radius: 20px;
-        @include desktop {
-            width: calc( 100% - 30px);
-            max-width: 100%;
+.register {
+    width: 100%;
+    min-height: 100vh;
+    background: url('../assets/header-page-contact.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding-top: 15vh;
+    .register-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-block: 5vh;
+        .form-title {
+            text-align: center;
+            margin-top: 10px;
         }
-        .signup-content {
+        .form-group{
+            width: 100%;
+            padding: 6px 10px;
             display: flex;
-            padding: 75px 0px;
-            .signup-form {
-                margin-left: 75px;
-                margin-right: 75px;
-                padding-left: 34px;
+            justify-content: space-between;
+            input{
                 width: 100%;
-                overflow: hidden;
-                .form-title {
-                    margin-bottom: 33px;
-                    line-height: 1.66;
-                    margin: 0;
-                    padding: 0;
-                    font-weight: bold;
-                    font-size: 36px;
-                    margin-bottom: 25px;
+                display: block;
+                border: none;
+                border-bottom: 1px solid #999;
+                padding: 0px 30px;
+                outline: none;
+                background-color: #f6f5f5;
+                &:focus{
+                    outline: none;
                 }
-                .register-form {
-                    width: 100%;
-                    .form-group {
-                            position: relative;
-                            margin-bottom: 25px;
-                            overflow: hidden;
-                            label {
-                                position: absolute;
-                                left: 0;
-                                top: 12%;
-                            }
-                            input {
-                                width: 100%;
-                                display: block;
-                                border: none;
-                                border-bottom: 1px solid #999;
-                                padding: 6px 30px;
-                                outline: none;
-                            }
-                            .form-group:last-child {
-                                margin-bottom: 0px;
-                            }
-                            .option-select {
-                                padding-block: 10px;
-                            }
-                        }
-                        .label-select {
-                            position: absolute;
-                            top: 64vh;
-                            z-index: 1;
-                        }
-                        select {
-                            width: 100%;
-                            display: block;
-                            border: none;
-                            border-bottom: 1px solid #999;
-                            padding: 6px 30px;
-                            outline: none;
-                            position: relative;
-                            margin-bottom: 25px;
-                            overflow: hidden;
-                        }
-                    .form-button {
-                        width: 100%;
-                        border: none;
-                        .form-submit {
-                            display: inline-block;
-                            background: $main-color;
-                            border: 1px solid white;
-                            color: white;
-                            padding: 15px 39px;
-                            border-radius: 5px;
-                            cursor: pointer;
-                            font-weight: bold;
-                            width: 30%;
-                            &:hover {
-                                background-color: white;
-                                border: 1px solid $main-color;
-                                color: $main-color;
-                                cursor: pointer;
-                            }
-                        }
-                    }
-                    .form-link {
-                        padding-top: 25px;
-                    }
+            }
+            label{
+                font-size: 1.2rem;
+                color: #000;
+                font-weight: bold;
+                margin-bottom: 4px;
+            }
+            select{
+                width: 100%;
+                display: block;
+                border: none;
+                border-bottom: 1px solid #999;
+                background-color: #f6f5f5;
+                padding: 6px 10px;
+                outline: none;
+                position: relative;
+                padding-left: 24px;
+                &:focus{
+                    outline: none;
                 }
-                .signup-image {
-                    margin-top: 45px;
-                    margin: 0 55px;
-                    width: 50%;
-                    overflow: hidden;
-                    figure {
-                        margin: 0px;
-                        margin-bottom: 50px;
-                        text-align: center; 
-                    }
-                    .signup-image-link {
-                        font-size: 14px;
-                        display: block;
-                        text-align: center;
-                        color: black;
-                    }
+            }
+            .register-image-link {
+                color: #000;
+                font-weight: bold;
+                margin-bottom: 4px;
+                text-decoration: none;
+                margin-top: 10px;
+                &:hover {
+                    color: $main-color;
+                    text-decoration: underline;
                 }
+            }
+        }
+        .form-button{
+            input[type=submit]{
+                display: inline-block;
+                background: $main-color;
+                border: 1px solid white;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: bold;
+                padding: 15px 20px;
+                margin-top: 10px;
+                &:hover {
+                    background-color: white;
+                    border: 1px solid $main-color;
+                    color: $main-color;
+                    cursor: pointer;
+                }
+            }
+        }
+        .content-form{
+            background-color: #f6f5f5;
+            width: 45%;
+            height:auto;
+            padding:10px 10px;
+            box-shadow: 0px 15px 16.83px 0.17px rgb(0 0 0 / 5%);
+            border-radius: 5px;
+            @include tablet {
+                width: 65%;
+            }
+            @include mobile {
+                width: 80%;
             }
         }
     }

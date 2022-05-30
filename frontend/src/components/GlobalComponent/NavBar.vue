@@ -20,7 +20,7 @@
                 <router-link class="routenav registernav" to="/RegisterView">Register</router-link>
             </li>
             <li>
-                <router-link class="routenav loginnav" to="/RegisterView">Login</router-link>
+                <router-link class="routenav loginnav" to="/LoginView">Login</router-link>
             </li>
         </ul>
     </nav>
