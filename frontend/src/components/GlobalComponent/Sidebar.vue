@@ -1,394 +1,528 @@
 <template>
-    <nav class="sidebar close">
-        <header>
-            <div class="image-text">
-                <span class="image">
-                    <img src="@/assets/logo.png" alt="">
-                </span>
-
-                <div class="text logo-text">
-                    <span class="name">Codinglab</span>
-                    <span class="profession">Web developer</span>
-                </div>
-            </div>
-
-            <i class='bx bx-chevron-right toggle'></i>
-        </header>
-
-        <div class="menu-bar">
-            <div class="menu">
-
-                <li class="search-box">
-                    <i class='bx bx-search icon'></i>
-                    <input type="text" placeholder="Search...">
-                </li>
-
-                <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-home-alt icon' ></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-bar-chart-alt-2 icon' ></i>
-                            <span class="text nav-text">Revenue</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Notifications</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-pie-chart-alt icon' ></i>
-                            <span class="text nav-text">Analytics</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-heart icon' ></i>
-                            <span class="text nav-text">Likes</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-wallet icon' ></i>
-                            <span class="text nav-text">Wallets</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-
-            <div class="bottom-content">
-                <li class="">
-                    <a href="#">
-                        <i class='bx bx-log-out icon' ></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
-
-                <li class="mode">
-                    <div class="sun-moon">
-                        <i class='bx bx-moon icon moon'></i>
-                        <i class='bx bx-sun icon sun'></i>
-                    </div>
-                    <span class="mode-text text">Dark mode</span>
-
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li>
-                
-            </div>
+  <div class="sidebar" :class="isOpened ? 'open' : ''" :style="cssVars">
+    <div class="logo-details" style="margin: 6px 14px 0 14px">
+      <img
+        src="@/assets/Logo_dash_admin.png"
+        alt="menu-logo"
+        class="menu-logo icon"
+        style="height: 80px; width: 50px"
+      />
+      <!-- <div class="logo_name">Dashboard</div> -->
+      <i
+        class="bx"
+        :class="isOpened ? 'bx-menu-alt-right' : 'bx-menu'"
+        id="btn"
+        @click="isOpened = !isOpened"
+      />
+    </div>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
+        max-height: calc(100% - 60px);
+      "
+    >
+      <div id="my-scroll" style="margin: 6px 14px 0 14px">
+        <ul class="nav-list" style="overflow: visible">
+          <!-- pour afficher tout les button de nav-bar -->
+          <span v-for="(menuItem, index) in menuItems" :key="index">
+            <li @click="deriction(menuItem.link)" class="cursor-pointer">
+              <a :active-class="isclick ? 'active' : ''">
+                <i>
+                  <Icon :icon="menuItem.icon" />
+                </i>
+                <span class="links_name">{{ menuItem.name }} </span>
+              </a>
+            </li>
+          </span>
+        </ul>
+      </div>
+      <div class="profile">
+        <div class="profile-details">
+          <img src="@/assets/profile.jpg" alt="profileImg" />
+          <div class="name_job">
+            <div class="name">Reda DAALABI</div>
+            <div class="job">Admin</div>
+          </div>
         </div>
-    </nav>
-    <section class="home">
-        <div class="text">Dashboard Sidebar</div>
-    </section>
+        <i
+          v-if="isExitButton"
+          class="bx bx-log-out"
+          id="log_out"
+          @click="logout()"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import { Icon } from "@iconify/vue";
 export default {
-    name: "Side-bar",
-    data() {
-        return {
-            
-        };
+  name: "SidebarMenuAkahon",
+  components: {
+    Icon,
+  },
+  inject: ["setRole"],
+  props: {
+    //! Menu settings
+    isMenuOpen: {
+      type: Boolean,
+      default: true,
     },
-    methods: {
-        
-    }
-}
+    menuIcon: {
+      type: String,
+      default: "bxl-c-plus-plus",
+    },
+    isPaddingLeft: {
+      type: Boolean,
+      default: true,
+    },
+    menuOpenedPaddingLeftBody: {
+      type: String,
+      default: "250px",
+    },
+    menuClosedPaddingLeftBody: {
+      type: String,
+      default: "78px",
+    },
+    //! Search
+    isSearch: {
+      type: Boolean,
+      default: true,
+    },
+    //! Exit button
+    isExitButton: {
+      type: Boolean,
+      default: true,
+    },
+    //! Styles
+    bgColor: {
+      type: String,
+      default: "#000",
+    },
+    secondaryColor: {
+      type: String,
+      default: "#1d1b31",
+    },
+    homeSectionColor: {
+      type: String,
+      default: "#e4e9f7",
+    },
+    logoTitleColor: {
+      type: String,
+      default: "#fff",
+    },
+    iconsColor: {
+      type: String,
+      default: "#fff",
+    },
+    itemsTooltipColor: {
+      type: String,
+      default: "#e4e9f7",
+    },
+    searchInputTextColor: {
+      type: String,
+      default: "#fff",
+    },
+    menuItemsHoverColor: {
+      type: String,
+      default: "#fff",
+    },
+    menuItemsTextColor: {
+      type: String,
+      default: "#fff",
+    },
+    menuFooterTextColor: {
+      type: String,
+      default: "#fff",
+    },
+  },
+  data() {
+    return {
+      menuItems: [
+        {
+          name: "Analyse",
+          link: "/Dashboard/AnalyseAdminView",
+          icon: "carbon:analytics",
+          tooltip: "Analyse",
+        },
+        {
+          name: "Commandes",
+          link: "/Dashboard/CommandesAdminView",
+          icon: "carbon:order-details",
+          tooltip: "Commandes",
+        },
+        {
+          name: "Poteries",
+          link: "/Dashboard/PoteriesAdminView",
+          icon: "bxs:box",
+          tooltip: "Poteries",
+        },
+        {
+          name: "Catégories",
+          link: "/Dashboard/CategoriesAdminView",
+          icon: "carbon:category",
+          tooltip: "Categories",
+        },
+      ],
+      isOpened: false,
+      isclick: true,
+    };
+  },
+  mounted() {
+    this.isOpened = this.isMenuOpen;
+  },
+  computed: {
+    cssVars() {
+      return {
+        "--bg-color": this.bgColor,
+        "--secondary-color": this.secondaryColor,
+        "--home-section-color": this.homeSectionColor,
+        "--logo-title-color": this.logoTitleColor,
+        "--icons-color": this.iconsColor,
+        "--items-tooltip-color": this.itemsTooltipColor,
+        "--serach-input-text-color": this.searchInputTextColor,
+        "--menu-items-hover-color": this.menuItemsHoverColor,
+        "--menu-items-text-color": this.menuItemsTextColor,
+        "--menu-footer-text-color": this.menuFooterTextColor,
+      };
+    },
+  },
+  watch: {
+    isOpened() {
+      window.document.body.style.paddingLeft =
+        this.isOpened && this.isPaddingLeft
+          ? this.menuOpenedPaddingLeftBody
+          : this.menuClosedPaddingLeftBody;
+    },
+  },
+  methods: {
+    click() {
+      this.isclick = !this.isclick;
+    },
+    deriction(event) {
+      this.$router.push(event);
+    },
+    logout() {
+      localStorage.removeItem("user");
+      this.setRole(" ");
+      this.$router.push("/Login");
+    },
+  },
+};
 </script>
 
-<style scoped>
-@import "@/sass/mixin.scss";
-::selection{
-    background-color: var(--primary-color);
-    color: #fff;
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $font-family;
 }
-
-body.dark{
-    --body-color: #18191a;
-    --sidebar-color: #242526;
-    --primary-color: #3a3b3c;
-    --primary-color-light: #3a3b3c;
-    --toggle-color: #fff;
-    --text-color: #ccc;
+$color-sousnavbar: #383838;
+$hover: #f8ce03;
+.hello {
+  display: flex;
+  background: white;
+  position: fixed;
+  z-index: 999;
+  padding: 0 100px 0 0;
+  width: 100%;
+  top: 0;
+  justify-content: space-around;
+  align-items: center;
+  h1 {
+    font-family: ui-sans-serif !important;
+  }
+  .sd {
+    color: #f8ce03;
+    font-family: ui-sans-serif !important;
+  }
 }
-
-/* ===== Sidebar ===== */
- .sidebar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 250px;
-    padding: 10px 14px;
-    background: var(--sidebar-color);
-    transition: var(--tran-05);
-    z-index: 100;  
+body {
+  transition: all 0.5s ease;
 }
-.sidebar.close{
-    width: 88px;
+.menu-logo {
+  width: 30px;
+  margin: 0 10px 0 10px;
 }
-
-/* ===== Reusable code - Here ===== */
-.sidebar li{
-    height: 50px;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  min-height: min-content;
+  /* overflow-y: auto; */
+  width: 78px;
+  background: var(--bg-color);
+  /* padding: 6px 14px 0 14px; */
+  z-index: 99;
+  transition: all 0.5s ease;
 }
-
-.sidebar header .image,
-.sidebar .icon{
-    min-width: 60px;
-    border-radius: 6px;
+.sidebar.open {
+  width: 250px;
 }
-
-.sidebar .icon{
-    min-width: 60px;
-    border-radius: 6px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+.sidebar .logo-details {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
-
-.sidebar .text,
-.sidebar .icon{
-    color: var(--text-color);
-    transition: var(--tran-03);
+.sidebar .logo-details .icon {
+  opacity: 0;
+  transition: all 0.5s ease;
 }
-
-.sidebar .text{
-    font-size: 17px;
-    font-weight: 500;
-    white-space: nowrap;
-    opacity: 1;
+.sidebar .logo-details .logo_name {
+  color: var(--logo-title-color);
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.5s ease;
 }
-.sidebar.close .text{
-    opacity: 0;
+.sidebar .logo-details .logo_name img {
+  width: auto;
+  height: auto;
+  padding: 30px;
 }
-/* =========================== */
-
-.sidebar header{
-    position: relative;
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name {
+  opacity: 1;
 }
-
-.sidebar header .image-text{
-    display: flex;
-    align-items: center;
+.sidebar .logo-details #btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 22px;
+  transition: all 0.4s ease;
+  font-size: 23px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
 }
-.sidebar header .logo-text{
-    display: flex;
-    flex-direction: column;
+.sidebar.open .logo-details #btn {
+  text-align: right;
 }
-header .image-text .name {
-    margin-top: 2px;
-    font-size: 18px;
-    font-weight: 600;
+.sidebar i {
+  color: var(--icons-color);
+  height: 60px;
+  min-width: 50px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px;
 }
-
-header .image-text .profession{
-    font-size: 16px;
-    margin-top: -2px;
-    display: block;
+.sidebar .nav-list {
+  margin-top: 20px;
 }
-
-.sidebar header .image{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.sidebar li {
+  position: relative;
+  margin: 8px 0;
+  list-style: none;
 }
-
-.sidebar header .image img{
-    width: 40px;
-    border-radius: 6px;
+.sidebar li .tooltip {
+  position: absolute;
+  top: -20px;
+  left: calc(100% + 15px);
+  z-index: 3;
+  background: var(--items-tooltip-color);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: 0s;
 }
-
-.sidebar header .toggle{
-    position: absolute;
-    top: 50%;
-    right: -25px;
-    transform: translateY(-50%) rotate(180deg);
-    height: 25px;
-    width: 25px;
-    background-color: var(--primary-color);
-    color: var(--sidebar-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    cursor: pointer;
-    transition: var(--tran-05);
+.sidebar li:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  top: 50%;
+  transform: translateY(-50%);
 }
-
-body.dark .sidebar header .toggle{
-    color: var(--text-color);
+.sidebar.open li .tooltip {
+  display: none;
 }
-
-.sidebar.close .toggle{
-    transform: translateY(-50%) rotate(0deg);
+.sidebar input {
+  font-size: 15px;
+  color: var(--serach-input-text-color);
+  font-weight: 400;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  width: 50px;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: var(--secondary-color);
 }
-
-.sidebar .menu{
-    margin-top: 40px;
+.sidebar.open input {
+  padding: 0 20px 0 50px;
+  width: 100%;
 }
-
-.sidebar li.search-box{
-    border-radius: 6px;
-    background-color: var(--primary-color-light);
-    cursor: pointer;
-    transition: var(--tran-05);
+.sidebar .bx-search {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 22px;
+  background: var(--secondary-color);
+  color: var(--icons-color);
 }
-
-.sidebar li.search-box input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    background-color: var(--primary-color-light);
-    color: var(--text-color);
-    border-radius: 6px;
-    font-size: 17px;
-    font-weight: 500;
-    transition: var(--tran-05);
+.sidebar.open .bx-search:hover {
+  background: var(--secondary-color);
+  color: var(--icons-color);
 }
-.sidebar li a{
-    list-style: none;
-    height: 100%;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: var(--tran-03);
+.sidebar .bx-search:hover {
+  background: var(--menu-items-hover-color);
+  color: var(--bg-color);
 }
-
-.sidebar li a:hover{
-    background-color: var(--primary-color);
+.sidebar li a {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  background: var(--bg-color);
+  cursor: pointer;
 }
-.sidebar li a:hover .icon,
-.sidebar li a:hover .text{
-    color: var(--sidebar-color);
+.sidebar li a:hover {
+  background: var(--menu-items-hover-color);
 }
-body.dark .sidebar li a:hover .icon,
-body.dark .sidebar li a:hover .text{
-    color: var(--text-color);
+.sidebar li a.active:focus {
+  background: var(--menu-items-hover-color);
 }
-
-.sidebar .menu-bar{
-    height: calc(100% - 55px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow-y: scroll;
+.sidebar li a .links_name {
+  color: var(--menu-items-text-color);
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
 }
-.menu-bar::-webkit-scrollbar{
+.sidebar.open li a .links_name {
+  opacity: 1;
+  pointer-events: auto;
+}
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i {
+  transition: all 0.5s ease;
+  color: var(--bg-color);
+}
+.sidebar li i {
+  height: 50px;
+  line-height: 54px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+.sidebar div.profile {
+  position: relative;
+  height: 60px;
+  width: 78px;
+  padding: 10px 14px;
+  background: var(--secondary-color);
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.sidebar.open div.profile {
+  width: 250px;
+}
+.sidebar div .profile-details {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.sidebar div img {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+.sidebar div.profile .name,
+.sidebar div.profile .job {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--menu-footer-text-color);
+  white-space: nowrap;
+}
+.sidebar div.profile .job {
+  font-size: 12px;
+}
+.sidebar .profile #log_out {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: var(--secondary-color);
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 0px;
+  transition: all 0.5s ease;
+}
+.sidebar.open .profile #log_out {
+  width: 50px;
+  background: var(--secondary-color);
+  opacity: 0;
+}
+.sidebar.open .profile:hover #log_out {
+  opacity: 1;
+}
+.sidebar.open .profile #log_out:hover {
+  opacity: 1;
+  color: red;
+}
+.sidebar .profile #log_out:hover {
+  color: red;
+}
+.home-section {
+  position: relative;
+  background: var(--home-section-color);
+  min-height: 100vh;
+  top: 0;
+  left: 78px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+.sidebar.open ~ .home-section {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+.home-section .text {
+  display: inline-block;
+  color: var(--bg-color);
+  font-size: 25px;
+  font-weight: 500;
+  margin: 18px;
+}
+.my-scroll-active {
+  overflow-y: auto;
+}
+#my-scroll {
+  overflow-y: auto;
+  height: calc(100% - 60px);
+}
+#my-scroll::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 420px) {
+  .sidebar li .tooltip {
     display: none;
-}
-.sidebar .menu-bar .mode{
-    border-radius: 6px;
-    background-color: var(--primary-color-light);
-    position: relative;
-    transition: var(--tran-05);
-}
-
-.menu-bar .mode .sun-moon{
-    height: 50px;
-    width: 60px;
-}
-
-.mode .sun-moon i{
-    position: absolute;
-}
-.mode .sun-moon i.sun{
-    opacity: 0;
-}
-body.dark .mode .sun-moon i.sun{
-    opacity: 1;
-}
-body.dark .mode .sun-moon i.moon{
-    opacity: 0;
-}
-
-.menu-bar .bottom-content .toggle-switch{
-    position: absolute;
-    right: 0;
-    height: 100%;
-    min-width: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    cursor: pointer;
-}
-.toggle-switch .switch{
-    position: relative;
-    height: 22px;
-    width: 40px;
-    border-radius: 25px;
-    background-color: var(--toggle-color);
-    transition: var(--tran-05);
-}
-
-.switch::before{
-    content: '';
-    position: absolute;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    background-color: var(--sidebar-color);
-    transition: var(--tran-04);
-}
-
-body.dark .switch::before{
-    left: 20px;
-}
-
-.home{
-    position: absolute;
-    top: 0;
-    top: 0;
-    left: 250px;
-    height: 100vh;
-    width: calc(100% - 250px);
-    background-color: var(--body-color);
-    transition: var(--tran-05);
-}
-.home .text{
-    font-size: 30px;
-    font-weight: 500;
-    color: var(--text-color);
-    padding: 12px 60px;
-}
-
-.sidebar.close ~ .home{
-    left: 78px;
-    height: 100vh;
-    width: calc(100% - 78px);
-}
-body.dark .home .text{
-    color: var(--text-color);
+  }
 }
 </style>

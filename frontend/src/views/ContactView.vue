@@ -1,4 +1,5 @@
 <template>
+    <NavBar />
     <section>
         <div class="backcontact">
         <center class="titre">Contact</center>
@@ -21,13 +22,20 @@
         </form>
         </div>
     </section>
+    <Footer />
 </template>
 
 <script>
+import NavBar from "@/components/GlobalComponent/NavBar.vue";
+import Footer from "@/components/GlobalComponent/Footer.vue";
 import axios from "axios";
 import swal from 'sweetalert';
 export default {
     name: "Cont-act",
+    components: {
+        NavBar,
+        Footer
+    },
     data() {
         return {
             nom: "",
@@ -83,6 +91,9 @@ section {
     padding-top: 12vh;
     padding-left: 40px;
     padding-right: 40px;
+    @include mobile {
+        margin-top: 0px;
+    }
     .titre {
         color: white;
         margin: 25px 0px 5px 0px;

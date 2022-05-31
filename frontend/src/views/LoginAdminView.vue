@@ -1,4 +1,5 @@
 <template>
+    <NavBar />
     <!-- Login Admin form -->
     <section class="login">
         <div class="login-form">
@@ -14,17 +15,35 @@
                     <input type="password" name="motdepasse" placeholder="Mot de passe">
                 </div>
                 <div class="form-button">
-                    <input type="submit" name="login" id="login" class="form-submit" value="Login"/>
+                    <input @click="redirect" type="submit" name="login" id="login" class="form-submit" value="Login"/>
                 </div>
             </form>
             </div>
         </div>
     </section>
+    <Footer />
 </template>
 
 <script>
+import NavBar from "@/components/GlobalComponent/NavBar.vue";
+import Footer from "@/components/GlobalComponent/Footer.vue";
 export default {
     name: "Log-in",
+    components: {
+        NavBar,
+        Footer
+    },
+    data() {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        redirect() {
+            this.$router.push('/Dashboard/AnalyseAdminView');
+        }
+    }
 }
 </script>
 

@@ -1,4 +1,5 @@
 <template>
+    <NavBar />
     <!-- Login form -->
     <section class="login">
         <div class="login-form">
@@ -24,11 +25,18 @@
             </div>
         </div>
     </section>
+    <Footer />
 </template>
 
 <script>
+import NavBar from "@/components/GlobalComponent/NavBar.vue";
+import Footer from "@/components/GlobalComponent/Footer.vue";
 export default {
     name: "Log-in",
+    components: {
+        NavBar,
+        Footer
+    },
 }
 </script>
 
