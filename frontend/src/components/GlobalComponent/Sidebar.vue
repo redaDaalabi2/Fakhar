@@ -8,9 +8,10 @@
         style="height: 80px; width: 50px"
       />
       <!-- <div class="logo_name">Dashboard</div> -->
+      <span v-if="isOpened" class="closemenu" @click="isOpened = !isOpened">&times;</span>
       <i
-        class="bx"
-        :class="isOpened ? 'bx-menu-alt-right' : 'bx-menu'"
+      v-if="!isOpened"
+        class="bx bx-menu"
         id="btn"
         @click="isOpened = !isOpened"
       />
@@ -207,9 +208,9 @@ export default {
       this.$router.push(event);
     },
     logout() {
-      localStorage.removeItem("user");
-      this.setRole(" ");
-      this.$router.push("/Login");
+      // localStorage.removeItem("user");
+      // this.setRole(" ");
+      this.$router.push("/LoginAdminView");
     },
   },
 };
@@ -352,6 +353,14 @@ body {
 }
 .sidebar.open li .tooltip {
   display: none;
+}
+.closemenu {
+  color:white;
+  width:100%;
+  text-align:end;
+  font-size:40px;
+  padding-right:5px;
+  cursor:pointer;
 }
 .sidebar input {
   font-size: 15px;

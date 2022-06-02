@@ -32,4 +32,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+.body{
+  padding-left: 0 !important;
+}
 </style>

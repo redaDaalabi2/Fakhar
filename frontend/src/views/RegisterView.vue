@@ -8,35 +8,35 @@
             <form @submit.prevent="register_client" class="register-form" id="register-form">
                 <div class="form-group">
                     <label for="name"><i class="fa-solid fa-user"></i></label>
-                    <input required type="text" name="nom" placeholder="Nom" v-model="nom">
+                    <input type="text" name="nom" placeholder="Nom" v-model="nom">
                 </div>
                 <div class="form-group">
                     <label for="name"><i class="fa-solid fa-user"></i></label>
-                    <input required type="text" name="prenom" placeholder="Prenom" v-model="prenom">
+                    <input type="text" name="prenom" placeholder="Prenom" v-model="prenom">
                 </div>
                 <div class="form-group">
                     <i class="fa-solid fa-venus-mars label-select" style="margin-top: 6px;"></i>
                 <select v-model="genre">
                     <option class="option-select" disabled value="">Sélectionnez le genre</option>
-                    <option class="option-select" value="">Homme</option>
-                    <option class="option-select" value="">Femme</option>
+                    <option class="option-select" >Homme</option>
+                    <option class="option-select" >Femme</option>
                 </select>
                 </div>
                 <div class="form-group">
                     <label for="Telephone"><i class="fa-solid fa-phone"></i></label>
-                    <input required type="phone" name="Telephone" placeholder="Telephone" v-model="Telephone">
+                    <input type="phone" name="Telephone" placeholder="Telephone" v-model="Telephone">
                 </div>
                 <div class="form-group">
                     <label for="adresse"><i class="fa-solid fa-address-book"></i></label>
-                    <input required type="text" name="adresse" placeholder="Address" v-model="adresse">
+                    <input type="text" name="adresse" placeholder="Address" v-model="adresse">
                 </div>
                 <div class="form-group">
                     <label for="email"><i class="fa-solid fa-envelope"></i></label>
-                    <input required type="email" name="email" placeholder="E-mail" v-model="email">
+                    <input type="email" name="email" placeholder="E-mail" v-model="email">
                 </div>
                 <div class="form-group">
                     <label for="pass"><i class="fa-solid fa-lock"></i></label>
-                    <input required type="password" name="motdepasse" placeholder="Mot de passe" v-model="motdepasse">
+                    <input type="password" name="motdepasse" placeholder="Mot de passe" v-model="motdepasse">
                 </div>
                 <div class="form-button">
                     <input type="submit" name="register" id="register" class="form-submit" value="Register"/>
@@ -64,39 +64,49 @@ export default {
     },
     data(){
         return {
-            client: {
-                nom: '',
-                prenom: '',
-                genre: '',
-                Telephone: '',
-                adresse: '',
-                email: '',
-                motdepasse: '',
-            }
+            nom: '',
+            prenom: '',
+            genre: '',
+            Telephone: '',
+            adresse: '',
+            email: '',
+            motdepasse: '',
         };
     },
     methods: {
         register_client(){
             if(this.nom != '' && this.prenom != '' && this.genre != '' && this.Telephone != '' && this.adresse != '' && this.email != '' && this.motdepasse != ''){
-                axios.post('http://localhost/Fakhar/Utilisateur/register_client', this.client)
-                .then(response => {
-                    if(response.data.success){
-                        swal({
-                            title: "Success",
-                            text: "Votre compte a été créé avec succès",
-                            icon: "success",
-                            button: "OK",
-                        });
-                        this.$router.push('/LoginView');
-                    }else{
-                        swal({
-                            title: "Error",
-                            text: "Votre compte n'a pas été créé",
-                            icon: "error",
-                            button: "OK",
-                        });
-                    }
-                })
+            axios.post('http://localhost/Fakhar/Utilisateur/register_client', {
+                nom: this.nom,
+                prenom: this.prenom,
+                genre: this.genre,
+                Telephone: this.Telephone,
+                adresse: this.adresse,
+                email: this.email,
+                motdepasse: this.motdepasse,
+            })
+            .then(response => {
+                if(response){
+                    swal({
+                        title: "Bienvenue",
+                        text: "Vous êtes maintenant inscrit",
+                        icon: "success",
+                        button: "OK",
+                    });
+                    this.$router.push('/LoginView');
+                }
+                else{
+                    swal({
+                        title: "Erreur",
+                        text: "Veuillez vérifier vos informations",
+                        icon: "error",
+                        button: "OK",
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
             }
         }
     }

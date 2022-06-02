@@ -58,6 +58,8 @@ export default {
     padding-block: 72px;
     flex-direction: column;
     width: 100%;
+    padding-left: 100px;
+    padding-right: 20px;
     .container {
         display: flex;
         justify-content: center;
@@ -71,7 +73,7 @@ export default {
             background-color: white;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
             border-radius: 15px;
-            width: 40%;
+            width: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -98,7 +100,7 @@ export default {
             align-items: center;
             flex-direction: column;
             background-color: white;
-            width: 40%;
+            width: 50%;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
             height: 150px;
             border-radius: 15px;
@@ -126,7 +128,7 @@ export default {
         flex-direction: column;
         margin-block: 20px;
         height: 150px;
-        width: 83%;
+        width: 100%;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
         background-color: white;
         border-radius: 15px;
