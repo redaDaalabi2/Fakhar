@@ -11,7 +11,7 @@
                 <router-link class="routenav" to="/">Accueil</router-link>
             </li>
             <li>
-                <router-link class="routenav" to="/">Magasin</router-link>
+                <router-link class="routenav" to="/Magasin/BoutiqueView">Magasin</router-link>
             </li>
             <li>
                 <router-link class="routenav" to="/ContactView">Contact</router-link>

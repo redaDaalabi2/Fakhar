@@ -17,9 +17,9 @@
             $this->conn = $db;
         }
 
-        public function create()
-        {
-            $sql = "INSERT INTO linecmd (com_Id , produit_Id , quantite , prix_totale) VALUES ('$this->com_Id', '$this->produit_Id', '$this->quantite','$this->prix_totale')";
+
+        public function create(){
+            $sql = "INSERT INTO linecmd (com_Id, produit_Id, quantite, prix_totale) VALUES ($this->com_Id, $this->produit_Id, $this->quantite, $this->prix_totale)";
             $stmt = $this->conn->prepare($sql);
             if ($stmt->execute()) {
                 return true;
@@ -27,6 +27,16 @@
                 return false;
             }
         }
+        // public function create()
+        // {
+        //     $sql = "INSERT INTO linecmd (com_Id , produit_Id , quantite , prix_totale) VALUES ('$this->com_Id', '$this->produit_Id', '$this->quantite','$this->prix_totale')";
+        //     $stmt = $this->conn->prepare($sql);
+        //     if ($stmt->execute()) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
 
         public function product_existe()
         {

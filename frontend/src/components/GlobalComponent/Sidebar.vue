@@ -171,6 +171,8 @@ export default {
       ],
       isOpened: false,
       isclick: true,
+      token: localStorage.getItem("token"),
+      role: localStorage.getItem("role"),
     };
   },
   mounted() {
@@ -208,8 +210,8 @@ export default {
       this.$router.push(event);
     },
     logout() {
-      // localStorage.removeItem("user");
-      // this.setRole(" ");
+      localStorage.removeItem('role');
+      localStorage.removeItem('token');
       this.$router.push("/LoginAdminView");
     },
   },

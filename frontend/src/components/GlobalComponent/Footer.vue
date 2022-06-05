@@ -178,7 +178,7 @@ footer {
                     font-size: 18px;
                 }
                 @include mobile {
-                    font-size: 16px;
+                    font-size: 14px;
                 }
             }
         }

@@ -8,6 +8,8 @@ import AnalyseAdminView from "../views/Dashboard/AnalyseAdminView.vue";
 import CommandesAdminView from "../views/Dashboard/CommandesAdminView.vue";
 import PoteriesAdminView from "../views/Dashboard/PoteriesAdminView.vue";
 import CategoriesAdminView from "../views/Dashboard/CategoriesAdminView.vue";
+import BoutiqueView from "../views/Magasin/BoutiqueView.vue";
+import ProfileView from "../views/Magasin/ProfileView.vue";
 
 const routes = [
   {
@@ -54,6 +56,16 @@ const routes = [
     path: "/Dashboard/CategoriesAdminView",
     name: "CategoriesAdminView",
     component: CategoriesAdminView
+  },
+  {
+    path: "/Magasin/BoutiqueView",
+    name: "BoutiqueView",
+    component: BoutiqueView
+  },
+  {
+    path: "/Magasin/ProfileView",
+    name: "ProfileView",
+    component: ProfileView
   },
 ];
 

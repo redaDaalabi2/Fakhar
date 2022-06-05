@@ -59,7 +59,7 @@
                                     'message' => 'La commande a été créée et le produit a été ajouté à votre panier',
                                     'state' => true
                                 ));
-                                $this->produit->quantite = $resultProduit['quantity'] - $quantite;
+                                $this->produit->quantite = $resultProduit['quantite'] - $quantite;
                                 $this->produit->update_quantite();
                             } else {
                                 echo json_encode(array(

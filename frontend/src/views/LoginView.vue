@@ -5,14 +5,14 @@
         <div class="login-form">
             <div class="content-form" >
             <h2 class="form-title">Login</h2>
-            <form method="POST" class="login-form" id="login-form">
+            <form @submit.prevent="login_client" class="login-form" id="login-form">
                 <div class="form-group">
                     <label for="email"><i class="fa-solid fa-envelope"></i></label>
-                    <input type="email" name="email" placeholder="E-mail">
+                    <input v-model="email" type="email" name="email" placeholder="E-mail">
                 </div>
                 <div class="form-group">
                     <label for="pass"><i class="fa-solid fa-lock"></i></label>
-                    <input type="password" name="motdepasse" placeholder="Mot de passe">
+                    <input v-model="motdepasse" type="password" name="motdepasse" placeholder="Mot de passe">
                 </div>
                 <div class="form-button">
                     <input type="submit" name="login" id="login" class="form-submit" value="Login"/>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import swal from "sweetalert";
+import axios from "axios";
 import NavBar from "@/components/GlobalComponent/NavBar.vue";
 import Footer from "@/components/GlobalComponent/Footer.vue";
 export default {
@@ -37,6 +39,46 @@ export default {
         NavBar,
         Footer
     },
+    data() {
+        return {
+            email: "",
+            motdepasse: ""
+        };
+    },
+    methods: {
+       login_client() {
+           if (this.email != '' && this.motdepasse != '') {
+                axios.post('http://localhost/Fakhar/Utilisateur/login', {
+                        email: this.email,
+                        motdepasse: this.motdepasse,
+                    })
+                    .then(response => {
+                        if (response.data.state == true) {
+                            console.log(response.data);
+                            localStorage.setItem("token", response.data.token);
+                            this.$router.push('/Magasin/BoutiqueView');
+                        } else {
+                            swal({
+                                title: "Erreur",
+                                text: "Email ou mot de passe incorrect",
+                                icon: "error",
+                                button: "Ok",
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } else {
+                swal({
+                    title: "Erreur",
+                    text: "Veuillez remplir tous les champs",
+                    icon: "error",
+                    button: "Ok",
+                });
+            }
+       }
+    }
 }
 </script>
 
@@ -97,7 +139,7 @@ export default {
                     font-size: 14px;
                 }
                 @include mobile {
-                    font-size: 10px;
+                    font-size: 8px;
                 }
             }
         }

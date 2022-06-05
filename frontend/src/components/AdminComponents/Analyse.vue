@@ -1,20 +1,24 @@
 <template>
     <div>
         <h1 class="titre">Analyse</h1>
-        <div class="content">
-            <div class="container">
-                <div class="one">
-                    <h4>Nombre de commande effectuée</h4>
-                    <h4>0</h4>
-                </div>
-                <div class="two">
-                    <h4>Nombre de commandes livrées</h4>
-                    <h4>0</h4>
+            <div class="content">
+                <div class="col-div-3">
+                <div class="box">
+                    <p>0<br/><span>Nombre de commande effectuée</span></p>
+                    <i class="fa-brands fa-first-order"></i>
                 </div>
             </div>
-            <div class="tree">
-                <h4>Nombre d'inscription</h4>
-                <h4>0</h4>
+            <div class="col-div-3">
+                <div class="box">
+                    <p>0<br/><span>Nombre de commandes livrées</span></p>
+                    <i class="fa-brands fa-first-order-alt"></i>
+                </div>
+            </div>
+            <div class="col-div-3">
+                <div class="box">
+                    <p>0<br/><span>Nombre d'inscription</span></p>
+                    <i class="fa fa-users box-icon"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -51,100 +55,56 @@ export default {
         font-size: 1.2em;
     }
 }
+body{
+	overflow: hidden;
+}
 .content {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding-block: 72px;
     flex-direction: column;
+    padding-block: 50px;
     width: 100%;
     padding-left: 100px;
-    padding-right: 20px;
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        margin-inline: 20px;
-        margin-block: 20px;
+    .col-div-3{
         width: 100%;
-        .one {
-            height: 150px;
-            background-color: white;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-            border-radius: 15px;
-            width: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            h4{
-                text-align: center;
-                @include tablet {
-                    font-size: 11px;
-                }
-                @include mobile {
-                    font-size: 9px;
-                }
-            }
-            @include tablet {
-                font-size: 11px;
-            }
-            @include mobile {
-                font-size: 9px;
-            }
-        }
-        .two {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background-color: white;
-            width: 50%;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-            height: 150px;
-            border-radius: 15px;
-            @include tablet {
-                font-size: 11px;
-            }
-            @include mobile {
-                font-size: 9px;
-            }
-            h4{
-                text-align: center;
-                @include tablet {
-                    font-size: 11px;
-                }
-                @include mobile {
-                    font-size: 9px;
-                }
-            }
-        }
+        float: left;
     }
-    .tree {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        margin-block: 20px;
-        height: 150px;
-        width: 100%;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-        background-color: white;
-        border-radius: 15px;
-        @include tablet {
-            font-size: 11px;
-        }
-        @include mobile {
-            font-size: 9px;
-        }
-        h4{
-            text-align: center;
-            @include tablet {
-                font-size: 11px;
+    .box{     
+        margin-right: 30px;
+        margin-bottom: 30px;
+        height: 100px;
+        background-color: #272c4a;
+        margin-left: 10px;
+        padding:10px;
+        p {
+            font-size: 35px;
+            color: white;
+            font-weight: bold;
+            line-height: 30px;
+            padding-left: 10px;
+            margin-top: 20px;
+            display: inline-block;
+            span{
+                font-size: 20px;
+                font-weight: 400;
+                color: white;
+                @include tablet {
+                    font-size: 14px;
+                }
+                @include mobile {
+                    font-size: 10px;
+                }
             }
+        }
+        i{
+            font-size: 40px!important;
+            float: right;
+            margin-top: 35px!important;
+            color: white;
+            padding-right: 10px;
             @include mobile {
-                font-size: 9px;
+                color: $dash-color;
             }
         }
     }
