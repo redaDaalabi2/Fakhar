@@ -1,5 +1,4 @@
 <template>
-    <NavBar />
     <!-- Login Admin form -->
     <section class="login">
         <div class="login-form">
@@ -21,19 +20,16 @@
             </div>
         </div>
     </section>
-    <Footer />
 </template>
 
 <script>
 import swal from "sweetalert";
 import axios from "axios";
-import NavBar from "@/components/GlobalComponent/NavBar.vue";
-import Footer from "@/components/GlobalComponent/Footer.vue";
 export default {
     name: "Log-in",
+    props: ["setvr" , "affiche"],
     components: {
-        NavBar,
-        Footer
+        
     },
     data() {
         return {
@@ -54,6 +50,8 @@ export default {
                                 console.log(response.data);
                                 localStorage.setItem("token", response.data.token);
                                 localStorage.setItem("role", response.data.role);
+                                this.$store.dispatch("set_affiche", true);
+                                this.$store.dispatch("set_role", response.data.role)
                                 this.$router.push('/Dashboard/AnalyseAdminView');
                             }else if(response.data.role != 'admin'){
                                 swal({

@@ -1,5 +1,4 @@
 <template>
-    <NavBar />
     <!-- Register form -->
     <section class="register">
         <div class="register-form">
@@ -48,19 +47,15 @@
             </div>
         </div>
     </section>
-    <Footer />
 </template>
 
 <script>
-import NavBar from "@/components/GlobalComponent/NavBar.vue";
-import Footer from "@/components/GlobalComponent/Footer.vue";
 import swal from 'sweetalert';
 import axios from "axios";
 export default {
     name: "Regi-ster",
     components: {
-        NavBar,
-        Footer
+
     },
     data(){
         return {

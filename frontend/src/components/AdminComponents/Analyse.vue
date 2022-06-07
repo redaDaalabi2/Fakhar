@@ -63,9 +63,10 @@ body{
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    padding-block: 50px;
+    padding-top: 50px;
+    padding-bottom: 84px;
     width: 100%;
-    padding-left: 100px;
+    padding-left: 16vh;
     .col-div-3{
         width: 100%;
         float: left;
@@ -103,9 +104,6 @@ body{
             margin-top: 35px!important;
             color: white;
             padding-right: 10px;
-            @include mobile {
-                color: $dash-color;
-            }
         }
     }
 }

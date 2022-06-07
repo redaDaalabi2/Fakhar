@@ -16,11 +16,14 @@
             <li>
                 <router-link class="routenav" to="/ContactView">Contact</router-link>
             </li>
-            <li>
+            <li v-if="!showings">
                 <router-link class="routenav registernav" to="/RegisterView">Register</router-link>
             </li>
-            <li>
+            <li v-if="!showings">
                 <router-link class="routenav loginnav" to="/LoginView">Login</router-link>
+            </li>
+            <li v-if="showings">
+                <router-link @click="logout_client" class="routenav loginnav" to="/LoginView">Logout</router-link>
             </li>
         </ul>
     </nav>
@@ -29,6 +32,7 @@
 <script>
 export default {
     name: "Nav-bar",
+    props: ["setvr", "showings"],
     data() {
         return {
             
@@ -37,7 +41,12 @@ export default {
     methods: {
         showMenu(){
             document.getElementById("navbarId").classList.toggle("active")
-        }
+        },
+        logout_client() {
+            localStorage.clear();
+            this.showings == false;
+            this.$router.push('/LoginView');
+        },
     }
 }
 </script>

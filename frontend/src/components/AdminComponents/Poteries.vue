@@ -4,7 +4,7 @@
         <div class="table">
         <div class="table_header">
             <p>détails du poteries</p>
-            <div><button class="add_new">+ Ajouter un poterie</button> </div>
+            <div><button @click="showModal1=true" class="add_new">+ Ajouter un poterie</button> </div>
         </div>
         <div class="table_section">
             <table>
@@ -25,7 +25,7 @@
                         <td>Cuisine</td>
                         <td>30</td>
                         <td>1</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>kerra</td>
@@ -33,7 +33,7 @@
                         <td>Cuisine</td>
                         <td>30</td>
                         <td>1</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>kerra</td>
@@ -41,7 +41,7 @@
                         <td>Cuisine</td>
                         <td>30</td>
                         <td>1</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>kerra</td>
@@ -49,7 +49,7 @@
                         <td>Cuisine</td>
                         <td>30</td>
                         <td>1</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>kerra</td>
@@ -57,7 +57,7 @@
                         <td>Cuisine</td>
                         <td>30</td>
                         <td>1</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>kerra</td>
@@ -65,7 +65,7 @@
                         <td>Cuisine</td>
                         <td>30</td>
                         <td>1</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>kerra</td>
@@ -73,7 +73,7 @@
                         <td>Cuisine</td>
                         <td>30</td>
                         <td>1</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>kerra</td>
@@ -81,7 +81,7 @@
                         <td>Cuisine</td>
                         <td>30</td>
                         <td>1</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -95,6 +95,40 @@
             <div><i class="fa-solid fa-angles-right"></i></div>
         </div>
     </div>
+    <div class="close-div" v-if="showModal1"  @click="showModal1=false;"></div>
+        <form class="popup-all" v-if="showModal1" >
+            <h2>Ajouter un poterie<a  v-if="showModal1=true" @click="showModal1=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
+            <label for="">Poteries</label>
+            <input type="text" placeholder="Poteries" class="input-pop">
+            <label for="">Images</label>
+            <input type="file" class="input-file">
+            <label for="">Catégories</label>
+            <select class="input-pop">
+                <option class="select-pop">Sélectionez un catégorie</option>
+            </select>
+            <label for="">Prix</label>
+            <input type="number" placeholder="Prix" class="input-pop">
+            <label for="">Quantité</label>
+            <input type="number" placeholder="Quantité" class="input-pop">
+            <input type="submit" value="Valider" class="submit-pop">
+        </form>
+        <div class="close-div" v-if="showModal2"  @click="showModal2=false;"></div>
+        <form class="popup-all" v-if="showModal2" >
+            <h2>Modifier un poterie<a  v-if="showModal2=true" @click="showModal2=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
+            <label for="">Poteries</label>
+            <input type="text" placeholder="Poteries" class="input-pop">
+            <label for="">Images</label>
+            <input type="file" class="input-file">
+            <label for="">Catégories</label>
+            <select class="input-pop">
+                <option class="select-pop">Sélectionez un catégorie</option>
+            </select>
+            <label for="">Prix</label>
+            <input type="number" placeholder="Prix" class="input-pop">
+            <label for="">Quantité</label>
+            <input type="number" placeholder="Quantité" class="input-pop">
+            <input type="submit" value="Valider" class="submit-pop">
+        </form>
     </div>
 </template>
 
@@ -103,7 +137,8 @@ export default {
     name: "pote-ries",
     data() {
         return {
-            
+            showModal1 : false,
+            showModal2 : false
         };
     },
     methods: {
@@ -114,6 +149,74 @@ export default {
 
 <style scoped lang="scss">
 @import "@/sass/_mixin.scss";
+.submit-pop {
+    display: flex;
+    margin: 0 auto;
+    background-color: #1d1b31;
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 15px 40px;
+    margin-top: 10px;
+    &:hover {
+        background-color: white;
+        border: 1px solid #1d1b31;
+        color: #1d1b31;
+        cursor: pointer;
+    }
+}
+.close-div{
+    width: 100%;
+    height: 100%;
+    background-color: #1b1b1b42;
+    position: fixed;
+    z-index: 88;
+    top: 0%;
+}
+.popup-all{
+    position: absolute;
+    top: 13%;
+    right: 20%;
+    z-index: 99;
+    background-color: white;
+    padding: 0px 35px 20px;
+    border-radius: 10px;
+}
+.popup-all h2{
+    font-size: 20px;
+    text-align: center;
+    padding: 20px;
+}
+.input-pop{
+    padding: 15px 480px 15px 10px;
+    border-radius: 10px;
+    border: solid 1px;
+    border-color: #b1b1b1;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.select-pop {
+    padding: 15px 480px 15px 10px;
+    border-radius: 10px;
+    border: solid 1px;
+    border-color: #b1b1b1;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.input-file {
+    margin-bottom: 20px;
+}
+.popup-all label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.close {
+    float: right;
+    cursor: pointer;
+}
 .titre {
     padding-block: 20px;
     text-align: center;
@@ -240,10 +343,6 @@ tr:hover td {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
     margin: 0 5px;
     cursor: pointer;
-}
-
-::placeholder {
-    color: #0298cf;
 }
 
 ::-webkit-scrollbar {

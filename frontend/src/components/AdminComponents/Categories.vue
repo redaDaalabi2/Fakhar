@@ -4,7 +4,7 @@
         <div class="table">
         <div class="table_header">
             <p>détails du Catégorie</p>
-            <div><button class="add_new">+ Ajouter un Catégorie</button> </div>
+            <div><button class="add_new" @click="showModal1=true">+ Ajouter une Catégorie</button> </div>
         </div>
         <div class="table_section">
             <table>
@@ -17,16 +17,30 @@
                 <tbody>
                     <tr>
                         <td>Cuisine</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Décore</td>
-                        <td><button><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>
+        </div>
+        <div class="close-div" v-if="showModal1"  @click="showModal1=false;"></div>
+        <form class="popup-all" v-if="showModal1" >
+            <h2>Ajouter une catégorie<a  v-if="showModal1=true" @click="showModal1=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
+            <label for="">nom de catégorie</label>
+            <input type="text" placeholder="Nom" class="input-pop">
+            <input type="submit" value="Valider" class="submit-pop">
+        </form>
+        <div class="close-div" v-if="showModal2"  @click="showModal2=false;"></div>
+        <form class="popup-all" v-if="showModal2" >
+            <h2>Modifier une catégorie<a  v-if="showModal2=true" @click="showModal2=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
+            <label for="">nom de catégorie</label>
+            <input type="text" placeholder="Nom" class="input-pop">
+            <input type="submit" value="Valider" class="submit-pop">
+        </form>
     </div>
 </template>
 
@@ -35,7 +49,8 @@ export default {
     name: "Categ-ories",
     data() {
         return {
-            
+            showModal1 : false,
+            showModal2 : false
         };
     },
     methods: {
@@ -46,6 +61,62 @@ export default {
 
 <style scoped lang="scss">
 @import "@/sass/_mixin.scss";
+.submit-pop {
+    display: flex;
+    margin: 0 auto;
+    background-color: #1d1b31;
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 15px 40px;
+    margin-top: 10px;
+    &:hover {
+        background-color: white;
+        border: 1px solid #1d1b31;
+        color: #1d1b31;
+        cursor: pointer;
+    }
+}
+.close-div{
+    width: 100%;
+    height: 100%;
+    background-color: #1b1b1b42;
+    position: fixed;
+    z-index: 88;
+    top: 0%;
+}
+.popup-all{
+    position: absolute;
+    top: 13%;
+    right: 20%;
+    z-index: 99;
+    background-color: white;
+    padding: 0px 35px 20px;
+    border-radius: 10px;
+}
+.popup-all h2{
+    font-size: 20px;
+    text-align: center;
+    padding: 20px;
+}
+.input-pop{
+    padding: 15px 480px 15px 10px;
+    border-radius: 10px;
+    border: solid 1px;
+    border-color: #b1b1b1;
+    margin-bottom: 20px;
+}
+.popup-all label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.close {
+    float: right;
+    cursor: pointer;
+}
 .titre {
     padding-block: 20px;
     text-align: center;
@@ -156,4 +227,5 @@ tr:hover td {
 ::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
+
 </style>

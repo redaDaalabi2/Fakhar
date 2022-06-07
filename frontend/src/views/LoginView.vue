@@ -1,5 +1,4 @@
 <template>
-    <NavBar />
     <!-- Login form -->
     <section class="login">
         <div class="login-form">
@@ -25,19 +24,14 @@
             </div>
         </div>
     </section>
-    <Footer />
 </template>
 
 <script>
 import swal from "sweetalert";
 import axios from "axios";
-import NavBar from "@/components/GlobalComponent/NavBar.vue";
-import Footer from "@/components/GlobalComponent/Footer.vue";
 export default {
     name: "Log-in",
     components: {
-        NavBar,
-        Footer
     },
     data() {
         return {
@@ -56,6 +50,7 @@ export default {
                         if (response.data.state == true) {
                             console.log(response.data);
                             localStorage.setItem("token", response.data.token);
+                            this.$store.dispatch("set_role", 'client');
                             this.$router.push('/Magasin/BoutiqueView');
                         } else {
                             swal({

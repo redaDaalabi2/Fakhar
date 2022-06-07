@@ -10,6 +10,7 @@ import PoteriesAdminView from "../views/Dashboard/PoteriesAdminView.vue";
 import CategoriesAdminView from "../views/Dashboard/CategoriesAdminView.vue";
 import BoutiqueView from "../views/Magasin/BoutiqueView.vue";
 import ProfileView from "../views/Magasin/ProfileView.vue";
+import ContactAdminView from "../views/Dashboard/ContactAdminView.vue";
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: "/Magasin/ProfileView",
     name: "ProfileView",
     component: ProfileView
+  },
+  {
+    path: "/Dashboard/ContactAdminView",
+    name: "ContactAdminView",
+    component: ContactAdminView
   },
 ];
 

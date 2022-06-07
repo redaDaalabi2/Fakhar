@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Categories />
+    <Contacte />
   </div>
 </template>
 
 <script>
-import Categories from '@/components/AdminComponents/Categories.vue';
+import Contacte from '../../components/AdminComponents/Contacte.vue';
 export default {
-  name: "AnalyseAdmin",
+  name: "ContacteAdmin",
   components: {
-    Categories
+    Contacte
   },
   methods: {
     

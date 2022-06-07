@@ -1,5 +1,4 @@
 <template>
-    <NavBar />
     <section class="main-back">
         <div class="back-container">
             <div class="caro-back"></div>
@@ -88,17 +87,14 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3373.473849751967!2d-9.253276785617206!3d32.27223591686002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdac2714f2593415%3A0x9c42ca37df4ee3d1!2z2YLYsdmK2Kkg2KfZhNiu2LLZgdmK2YY!5e0!3m2!1sfr!2sma!4v1650981469928!5m2!1sfr!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
-    <Footer />
 </template>
 
 <script>
-import NavBar from "@/components/GlobalComponent/NavBar.vue";
-import Footer from "@/components/GlobalComponent/Footer.vue";
 export default {
     name: "Acc-ueil",
     components: {
-        NavBar,
-        Footer
+        // NavBar,
+        // Footer
     },
 }
 </script>

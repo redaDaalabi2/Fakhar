@@ -1,21 +1,24 @@
 <template>
   <div>
-    <Sidebar />
     <Commandes />
   </div>
 </template>
 
 <script>
-import Sidebar from '@/components/GlobalComponent/Sidebar.vue';
 import Commandes from '../../components/AdminComponents/Commandes.vue';
 export default {
   name: "AnalyseAdmin",
   components: {
-    Sidebar,
     Commandes
   },
   methods: {
     
+  },
+  beforeMount(){
+    let checklocal = localStorage.getItem('token');
+    if(!checklocal){
+      this.$router.push('/LoginAdminView');
+    }
   }
 }
 </script>

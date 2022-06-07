@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavBar />
     <div class="cherche_header">
         <input placeholder="Chercher" /> 
         <router-link to="/Magasin/ProfileView" class="compte"><i class="fa-solid fa-user"></i> mon compte</router-link> 
@@ -107,18 +106,14 @@
             <div><i class="fa-solid fa-angles-right"></i></div>
         </div>
     </section>
-    <Footer />
   </div>
 </template>
 
 <script>
-import NavBar from "@/components/GlobalComponent/NavBar.vue";
-import Footer from "@/components/GlobalComponent/Footer.vue";
 export default {
   name: "BoutiqueView",
   components: {
-    NavBar,
-    Footer
+    
   },
   methods: {
 

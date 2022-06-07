@@ -168,6 +168,12 @@ export default {
           icon: "carbon:category",
           tooltip: "Categories",
         },
+        {
+          name: "Contactes",
+          link: "/Dashboard/ContactAdminView",
+          icon: "cil:contact",
+          tooltip: "Contact",
+        },
       ],
       isOpened: false,
       isclick: true,
@@ -212,6 +218,7 @@ export default {
     logout() {
       localStorage.removeItem('role');
       localStorage.removeItem('token');
+      this.$store.dispatch("set_affiche", false);
       this.$router.push("/LoginAdminView");
     },
   },

@@ -4,7 +4,6 @@
         <div class="table">
         <div class="table_header">
             <p>détails du commande</p>
-            <!-- <div><button class="add_new">+ Add New</button> </div> -->
         </div>
         <div class="table_section">
             <table>
@@ -24,7 +23,6 @@
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <!-- <td><img src="@/assets/produit/kerra.jpg" /></td> -->
                         <td>Reda</td>
                         <td>0691520892</td>
                         <td>05/062022</td>
@@ -33,11 +31,9 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                        <!-- <td> <button><i class="fa-solid fa-pen-to-square"></i></button> <button><i class="fa-solid fa-trash"></i></button> </td> -->
                     </tr>
                     <tr>
                         <td>1</td>
-                        <!-- <td><img src="@/assets/produit/kerra.jpg" /></td> -->
                         <td>Reda</td>
                         <td>0691520892</td>
                         <td>05/062022</td>
@@ -46,11 +42,9 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                        <!-- <td> <button><i class="fa-solid fa-pen-to-square"></i></button> <button><i class="fa-solid fa-trash"></i></button> </td> -->
                     </tr>
                     <tr>
                         <td>1</td>
-                        <!-- <td><img src="@/assets/produit/kerra.jpg" /></td> -->
                         <td>Reda</td>
                         <td>0691520892</td>
                         <td>05/062022</td>
@@ -59,11 +53,9 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                        <!-- <td> <button><i class="fa-solid fa-pen-to-square"></i></button> <button><i class="fa-solid fa-trash"></i></button> </td> -->
                     </tr>
                     <tr>
                         <td>1</td>
-                        <!-- <td><img src="@/assets/produit/kerra.jpg" /></td> -->
                         <td>Reda</td>
                         <td>0691520892</td>
                         <td>05/062022</td>
@@ -72,11 +64,9 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                        <!-- <td> <button><i class="fa-solid fa-pen-to-square"></i></button> <button><i class="fa-solid fa-trash"></i></button> </td> -->
                     </tr>
                     <tr>
                         <td>1</td>
-                        <!-- <td><img src="@/assets/produit/kerra.jpg" /></td> -->
                         <td>Reda</td>
                         <td>0691520892</td>
                         <td>05/062022</td>
@@ -85,11 +75,9 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                        <!-- <td> <button><i class="fa-solid fa-pen-to-square"></i></button> <button><i class="fa-solid fa-trash"></i></button> </td> -->
                     </tr>
                     <tr>
                         <td>1</td>
-                        <!-- <td><img src="@/assets/produit/kerra.jpg" /></td> -->
                         <td>Reda</td>
                         <td>0691520892</td>
                         <td>05/062022</td>
@@ -98,11 +86,9 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                        <!-- <td> <button><i class="fa-solid fa-pen-to-square"></i></button> <button><i class="fa-solid fa-trash"></i></button> </td> -->
                     </tr>
                     <tr>
                         <td>1</td>
-                        <!-- <td><img src="@/assets/produit/kerra.jpg" /></td> -->
                         <td>Reda</td>
                         <td>0691520892</td>
                         <td>05/062022</td>
@@ -111,11 +97,9 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                        <!-- <td> <button><i class="fa-solid fa-pen-to-square"></i></button> <button><i class="fa-solid fa-trash"></i></button> </td> -->
                     </tr>
                     <tr>
                         <td>1</td>
-                        <!-- <td><img src="@/assets/produit/kerra.jpg" /></td> -->
                         <td>Reda</td>
                         <td>0691520892</td>
                         <td>05/062022</td>
@@ -124,11 +108,9 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                        <!-- <td> <button><i class="fa-solid fa-pen-to-square"></i></button> <button><i class="fa-solid fa-trash"></i></button> </td> -->
                     </tr>
                     <tr>
                         <td>1</td>
-                        <!-- <td><img src="@/assets/produit/kerra.jpg" /></td> -->
                         <td>Reda</td>
                         <td>0691520892</td>
                         <td>05/062022</td>
@@ -137,7 +119,6 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                        <!-- <td> <button><i class="fa-solid fa-pen-to-square"></i></button> <button><i class="fa-solid fa-trash"></i></button> </td> -->
                     </tr>
                 </tbody>
             </table>

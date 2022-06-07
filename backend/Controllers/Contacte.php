@@ -40,5 +40,28 @@
 
         }
 
+        public function get_all(){
+            $stmt = $this->contacte->get_contactes();
+            $contactes = array();
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $contactes[] = $row;
+            }
+            echo json_encode($contactes);
+        }
+
+        public function delete(){
+            $this->contacte->id = $_GET['id'];
+            if ($this->contacte->delete_contacte()) {
+                echo json_encode(array(
+                    'message' => 'Contact a été supprimé avec succès',
+                    'state' => true
+                ));
+            } else {
+                echo json_encode(array(
+                    'message' => 'error',
+                    'state' => false
+                ));
+            }
+        }
     }
 ?>

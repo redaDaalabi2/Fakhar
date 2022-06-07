@@ -4,6 +4,7 @@
         // db
         private $conn;
         //utilisateurs properties
+        public $id;
         public $nom;
         public $prenom;
         public $email;
@@ -31,6 +32,23 @@
             $stmt->bindParam(':message', $this->message);
 
             // exectute
+            return $stmt->execute();
+        }
+
+        // get all contactes
+        public function get_contactes() {
+            $sql = "SELECT * FROM contact";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt;
+        }
+
+        //delete contacte
+        public function delete_contacte() {
+            $sql = "DELETE FROM contact WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $this->id = htmlspecialchars(strip_tags($this->id));
+            $stmt->bindParam(':id', $this->id);
             return $stmt->execute();
         }
     }
