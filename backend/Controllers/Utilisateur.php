@@ -142,9 +142,9 @@
 
             $this->utilisateur->token = $this->data->token;
             if ($info = $this->utilisateur->get_info_token()) {
-                echo json_encode(array('info' => $info));
+                echo json_encode( $info);
             } else {
-                echo json_encode(array('message' => "token non valide"));
+                echo json_encode("token non valide");
             }
         }
         public function check_token()

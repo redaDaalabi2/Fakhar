@@ -10,18 +10,19 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Nom de catégorie</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Cuisine</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>Décore</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                    <tr v-for="categorie in categories" :key="categorie.id_Cate">
+                        <td>{{ categorie.id_Cate }}</td>
+                        <td>{{ categorie.nom_cate }}</td>
+                        <td>
+                            <button @click="showModal2=true, update_categorie(categorie.id_Cate)"><i class="fa-solid fa-pen-to-square"></i></button>      
+                            <button @click="delete_categorie(categorie.id_Cate)"><i class="fa-solid fa-trash"></i></button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -31,11 +32,11 @@
         <form class="popup-all" v-if="showModal1" >
             <h2>Ajouter une catégorie<a  v-if="showModal1=true" @click="showModal1=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
             <label for="">nom de catégorie</label>
-            <input type="text" placeholder="Nom" class="input-pop">
-            <input type="submit" value="Valider" class="submit-pop">
+            <input type="text" v-model="nom_cate" placeholder="Nom" class="input-pop">
+            <input type="submit" value="Valider" class="submit-pop" @click="add_categories">
         </form>
         <div class="close-div" v-if="showModal2"  @click="showModal2=false;"></div>
-        <form class="popup-all" v-if="showModal2" >
+        <form class="popup-all" v-if="showModal2" @click="getOnecategorie">
             <h2>Modifier une catégorie<a  v-if="showModal2=true" @click="showModal2=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
             <label for="">nom de catégorie</label>
             <input type="text" placeholder="Nom" class="input-pop">
@@ -45,16 +46,71 @@
 </template>
 
 <script>
+import axios from "axios";
+import swal from 'sweetalert';
 export default {
     name: "Categ-ories",
     data() {
         return {
             showModal1 : false,
-            showModal2 : false
+            showModal2 : false,
+            categories: [],
+            categorie: {
+                id_Cate: "",
+                nom_cate: ""
+            },
+            token: localStorage.getItem("token"),
         };
     },
+    created() {
+        this.getAllCategories();
+    },
     methods: {
-
+        getAllCategories(){
+            axios.get('http://localhost/Fakhar/Categorie/getAll_categorie')
+            .then(response => {
+                this.categories = response.data;
+            })
+        },
+        add_categories(){
+            if(this.nom_cate != ""){
+                axios.post('http://localhost/Fakhar/Categorie/create_categorie', {
+                    token: this.token,
+                    nom_cate: this.nom_cate
+                })
+                .then(response => {
+                    if(response){
+                        swal("Catégorie ajoutée avec succès", "", "success");
+                    }
+                    else{
+                        swal("Erreur", "", "error");
+                    }
+                })
+            }
+        },
+        delete_categorie(id_Cate){
+            axios.post('http://localhost/Fakhar/Categorie/delete_categorie', {
+                id_Cate: id_Cate,
+                token: this.token,
+            })
+            .then(() => {
+                console.log(id_Cate);
+                console.log(this.token);
+                this.categories = this.categories.filter(categorie => {
+                    return categorie.id_Cate !== id_Cate;
+                });
+            })
+        },
+        getOnecategorie(id){
+            axios.get('http://localhost/Fakhar/Categorie/get_categorie?=id', +id)
+            .then(response => {
+                this.categorie = response.data;
+            })
+        },
+        //update categorie
+        // update_categorie(){
+            
+        // }
     }
 }
 </script>
@@ -169,6 +225,7 @@ button {
 
 td button:nth-child(1) {
     background-color:  #0298cf;
+    margin-right: 10px;
 }
 
 td button:nth-child(2) {

@@ -50,7 +50,7 @@
         }
 
         public function delete(){
-            $this->contacte->id = $_GET['id'];
+            $this->contacte->id = $this->data->id;
             if ($this->contacte->delete_contacte()) {
                 echo json_encode(array(
                     'message' => 'Contact a été supprimé avec succès',

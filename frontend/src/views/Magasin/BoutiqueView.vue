@@ -1,99 +1,19 @@
 <template>
   <div>
     <div class="cherche_header">
-        <input placeholder="Chercher" /> 
-        <router-link to="/Magasin/ProfileView" class="compte"><i class="fa-solid fa-user"></i> mon compte</router-link> 
+        <input placeholder="Chercher" v-model="keyword"> 
+        <router-link v-if="showings" to="/Magasin/ProfileView" class="compte"><i class="fa-solid fa-user"></i> mon compte</router-link> 
     </div>
     <section class="main-pro">
         <div class="content">
-            <div class="card">
-                <img src="@/assets/produit/arabesque.jpg" alt="">
-                <h3 class="card-titre">Soupiére Arabesque</h3>
+            <div class="card" v-for="poterie in filteredpoteries" :key="poterie.id_produit">
+                <img v-bind:src="'http://localhost/Fakhar/frontend/public/produit/' + poterie.image" alt="">
+                <h3 class="card-titre">{{ poterie.nom }}</h3>
                 <div class="desc">
                     <a class="card-butt">
                         <router-link class="Ajouter" to="/">Ajouter</router-link>
                     </a>
-                    <span class="prix">50 DH</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="@/assets/produit/arabesque.jpg" alt="">
-                <h3 class="card-titre">Soupiére Arabesque</h3>
-                <div class="desc">
-                    <a class="card-butt">
-                        <router-link class="Ajouter" to="/">Ajouter</router-link>
-                    </a>
-                    <span class="prix">50 DH</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="@/assets/produit/arabesque.jpg" alt="">
-                <h3 class="card-titre">Soupiére Arabesque</h3>
-                <div class="desc">
-                    <a class="card-butt">
-                        <router-link class="Ajouter" to="/">Ajouter</router-link>
-                    </a>
-                    <span class="prix">50 DH</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="@/assets/produit/arabesque.jpg" alt="">
-                <h3 class="card-titre">Soupiére Arabesque</h3>
-                <div class="desc">
-                    <a class="card-butt">
-                        <router-link class="Ajouter" to="/">Ajouter</router-link>
-                    </a>
-                    <span class="prix">50 DH</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="@/assets/produit/arabesque.jpg" alt="">
-                <h3 class="card-titre">Soupiére Arabesque</h3>
-                <div class="desc">
-                    <a class="card-butt">
-                        <router-link class="Ajouter" to="/">Ajouter</router-link>
-                    </a>
-                    <span class="prix">50 DH</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="@/assets/produit/arabesque.jpg" alt="">
-                <h3 class="card-titre">Soupiére Arabesque</h3>
-                <div class="desc">
-                    <a class="card-butt">
-                        <router-link class="Ajouter" to="/">Ajouter</router-link>
-                    </a>
-                    <span class="prix">50 DH</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="@/assets/produit/arabesque.jpg" alt="">
-                <h3 class="card-titre">Soupiére Arabesque</h3>
-                <div class="desc">
-                    <a class="card-butt">
-                        <router-link class="Ajouter" to="/">Ajouter</router-link>
-                    </a>
-                    <span class="prix">50 DH</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="@/assets/produit/arabesque.jpg" alt="">
-                <h3 class="card-titre">Soupiére Arabesque</h3>
-                <div class="desc">
-                    <a class="card-butt">
-                        <router-link class="Ajouter" to="/">Ajouter</router-link>
-                    </a>
-                    <span class="prix">50 DH</span>
-                </div>
-            </div>
-            <div class="card">
-                <img src="@/assets/produit/arabesque.jpg" alt="">
-                <h3 class="card-titre">Soupiére Arabesque</h3>
-                <div class="desc">
-                    <a class="card-butt">
-                        <router-link class="Ajouter" to="/">Ajouter</router-link>
-                    </a>
-                    <span class="prix">50 DH</span>
+                    <span class="prix">{{ poterie.prix }} DH</span>
                 </div>
             </div>
         </div>
@@ -110,14 +30,49 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "BoutiqueView",
+  props: ["setvr", "showings"],
+  data(){
+      return{
+          keyword:'',
+        poteries: [],
+        poterie: {
+            id_produit: '',
+            Cate_Id: '',
+            nom: '',
+            quantite: '',
+            prix: '',
+            description: '',
+            image: ''
+        }
+      }
+  },
   components: {
     
   },
-  methods: {
-
+  created() {
+    this.getAllpoteries();
   },
+  methods: {
+    getAllpoteries() {
+        axios.get('http://localhost/Fakhar/Poterie/getAll_produit')
+            .then(response => {
+                this.poteries = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    },
+  },
+  computed : {
+    filteredpoteries() {
+        return this.poteries.filter((poterie) => {
+            return poterie.nom.toLowerCase().indexOf(this.keyword.toLowerCase()) > -1;
+        });
+    }
+  }
 };
 </script>
 

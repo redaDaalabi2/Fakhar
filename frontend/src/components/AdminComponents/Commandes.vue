@@ -31,95 +31,7 @@
                         <td>En cour</td>
                         <td>20</td>
                         <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Reda</td>
-                        <td>0691520892</td>
-                        <td>05/062022</td>
-                        <td>20 Rue Oualili Qu Lebiare Safi</td>
-                        <td>20</td>
-                        <td>En cour</td>
-                        <td>20</td>
-                        <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Reda</td>
-                        <td>0691520892</td>
-                        <td>05/062022</td>
-                        <td>20 Rue Oualili Qu Lebiare Safi</td>
-                        <td>20</td>
-                        <td>En cour</td>
-                        <td>20</td>
-                        <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Reda</td>
-                        <td>0691520892</td>
-                        <td>05/062022</td>
-                        <td>20 Rue Oualili Qu Lebiare Safi</td>
-                        <td>20</td>
-                        <td>En cour</td>
-                        <td>20</td>
-                        <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Reda</td>
-                        <td>0691520892</td>
-                        <td>05/062022</td>
-                        <td>20 Rue Oualili Qu Lebiare Safi</td>
-                        <td>20</td>
-                        <td>En cour</td>
-                        <td>20</td>
-                        <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Reda</td>
-                        <td>0691520892</td>
-                        <td>05/062022</td>
-                        <td>20 Rue Oualili Qu Lebiare Safi</td>
-                        <td>20</td>
-                        <td>En cour</td>
-                        <td>20</td>
-                        <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Reda</td>
-                        <td>0691520892</td>
-                        <td>05/062022</td>
-                        <td>20 Rue Oualili Qu Lebiare Safi</td>
-                        <td>20</td>
-                        <td>En cour</td>
-                        <td>20</td>
-                        <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Reda</td>
-                        <td>0691520892</td>
-                        <td>05/062022</td>
-                        <td>20 Rue Oualili Qu Lebiare Safi</td>
-                        <td>20</td>
-                        <td>En cour</td>
-                        <td>20</td>
-                        <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Reda</td>
-                        <td>0691520892</td>
-                        <td>05/062022</td>
-                        <td>20 Rue Oualili Qu Lebiare Safi</td>
-                        <td>20</td>
-                        <td>En cour</td>
-                        <td>20</td>
-                        <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
-                    </tr>
+                    </tr>               
                 </tbody>
             </table>
         </div>
@@ -132,6 +44,7 @@
             <div><i class="fa-solid fa-angles-right"></i></div>
         </div>
     </div>
+    
     </div>
 </template>
 

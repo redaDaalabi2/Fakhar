@@ -102,10 +102,9 @@
         {
             $rows = $this->categorie->getAll();
             if ($rows) {
-                echo json_encode(array(
-                    'message' => $rows,
-                    'state' => true
-                ));
+                echo json_encode(
+                    $rows
+                );
             } else {
                 echo json_encode(array(
                     'message' => 'Aucune catégorie trouvée',

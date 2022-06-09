@@ -30,6 +30,7 @@
 import swal from "sweetalert";
 import axios from "axios";
 export default {
+    props: ["setvr", "showings"],
     name: "Log-in",
     components: {
     },
@@ -51,6 +52,7 @@ export default {
                             console.log(response.data);
                             localStorage.setItem("token", response.data.token);
                             this.$store.dispatch("set_role", 'client');
+                            this.setvr(true);
                             this.$router.push('/Magasin/BoutiqueView');
                         } else {
                             swal({

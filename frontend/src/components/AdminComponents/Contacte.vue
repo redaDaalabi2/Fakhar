@@ -70,9 +70,11 @@ export default {
             .catch(err => console.log(err));
         },
         delete_contacte(id){
-            axios.delete('http://localhost/Fakhar/Contacte/delete?id='+id)
+            axios.post('http://localhost/Fakhar/Contacte/delete',{
+                id: id
+            }
+            )
             .then(() => {
-                // console.log(res);
                 this.contactes = this.contactes.filter(contacte => {
                     return contacte.id !== id;
                 });

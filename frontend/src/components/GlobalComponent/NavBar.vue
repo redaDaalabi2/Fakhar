@@ -7,14 +7,17 @@
             <div></div>
         </div>
         <ul class="navbar" id="navbarId">
-            <li>
+            <li v-if="!showings">
                 <router-link class="routenav" to="/">Accueil</router-link>
             </li>
             <li>
                 <router-link class="routenav" to="/Magasin/BoutiqueView">Magasin</router-link>
             </li>
-            <li>
+            <li v-if="!showings">
                 <router-link class="routenav" to="/ContactView">Contact</router-link>
+            </li>
+            <li>
+                <router-link class="routenav" to="/"><i class="fa-solid fa-basket-shopping"></i></router-link>
             </li>
             <li v-if="!showings">
                 <router-link class="routenav registernav" to="/RegisterView">Register</router-link>
@@ -44,9 +47,14 @@ export default {
         },
         logout_client() {
             localStorage.clear();
-            this.showings == false;
+            this.setvr(false);
             this.$router.push('/LoginView');
         },
+    },
+    mounted(){
+        if (window.localStorage.getItem("token") != null && window.localStorage.getItem("role") != "admin") {
+            this.setvr(true);
+        }
     }
 }
 </script>
@@ -71,7 +79,7 @@ nav {
     }
 .navbar {
         display: flex ;
-        @media (max-width: 810px){
+        @media (max-width: 900px){
             display: none;
         }
         .routenav {
@@ -104,7 +112,7 @@ nav {
             &:hover::before {
                 left: 0;
             }
-            @media (max-width: 810px) {
+            @media (max-width: 900px) {
                 margin-block: 10px;
                 margin-right: 0px;
             }
@@ -113,7 +121,7 @@ nav {
             background-color: $main-color;
             border-radius: 5px;
             margin-right: 10px;
-            @media (max-width: 810px) {
+            @media (max-width: 900px) {
                 margin-block: 10px;
                 margin-right: 0px;
                 padding-inline: 28px;
@@ -122,7 +130,7 @@ nav {
         .loginnav {
             background-color: $main-color;
             border-radius: 5px;
-            @media (max-width: 810px) {
+            @media (max-width: 900px) {
                 padding-inline: 38px;
             } 
         }
@@ -134,7 +142,7 @@ nav {
     background-color: black;
     margin-block: 10px;
     display: none;
-    @media (max-width: 810px){
+    @media (max-width: 900px){
         display: block;
         cursor: pointer;
     }

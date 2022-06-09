@@ -43,7 +43,6 @@
             return $stmt;
         }
 
-        //delete contacte
         public function delete_contacte() {
             $sql = "DELETE FROM contact WHERE id = :id";
             $stmt = $this->conn->prepare($sql);

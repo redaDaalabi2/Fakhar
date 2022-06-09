@@ -24,6 +24,7 @@
             $countAll = $stmt->fetch(PDO::FETCH_ASSOC);
             return $countAll['count'];
         }
+
         public function count_clients()
         {
             $sql = "SELECT count( clients.id_Client ) as count FROM `clients`";

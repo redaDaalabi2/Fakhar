@@ -19,68 +19,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>kerra</td>
-                        <td><img src="@/assets/produit/kerra.jpg" /></td>
-                        <td>Cuisine</td>
-                        <td>30</td>
-                        <td>1</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>kerra</td>
-                        <td><img src="@/assets/produit/kerra.jpg" /></td>
-                        <td>Cuisine</td>
-                        <td>30</td>
-                        <td>1</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>kerra</td>
-                        <td><img src="@/assets/produit/kerra.jpg" /></td>
-                        <td>Cuisine</td>
-                        <td>30</td>
-                        <td>1</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>kerra</td>
-                        <td><img src="@/assets/produit/kerra.jpg" /></td>
-                        <td>Cuisine</td>
-                        <td>30</td>
-                        <td>1</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>kerra</td>
-                        <td><img src="@/assets/produit/kerra.jpg" /></td>
-                        <td>Cuisine</td>
-                        <td>30</td>
-                        <td>1</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>kerra</td>
-                        <td><img src="@/assets/produit/kerra.jpg" /></td>
-                        <td>Cuisine</td>
-                        <td>30</td>
-                        <td>1</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>kerra</td>
-                        <td><img src="@/assets/produit/kerra.jpg" /></td>
-                        <td>Cuisine</td>
-                        <td>30</td>
-                        <td>1</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>kerra</td>
-                        <td><img src="@/assets/produit/kerra.jpg" /></td>
-                        <td>Cuisine</td>
-                        <td>30</td>
-                        <td>1</td>
+                    <tr v-for="poterie in poteries" :key="poterie.id_produit">
+                        <td>{{ poterie.nom }}</td>
+                        <td><img v-bind:src="'http://localhost/Fakhar/frontend/public/produit/' + poterie.image" /></td>
+                        <td>cuisine</td>
+                        <td>{{ poterie.prix }}</td>
+                        <td>{{ poterie.quantite }}</td>
                         <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
                     </tr>
                 </tbody>
@@ -99,18 +43,19 @@
         <form class="popup-all" v-if="showModal1" >
             <h2>Ajouter un poterie<a  v-if="showModal1=true" @click="showModal1=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
             <label for="">Poteries</label>
-            <input type="text" placeholder="Poteries" class="input-pop">
-            <label for="">Images</label>
-            <input type="file" class="input-file">
+            <input v-model="poterie.nom" type="text" placeholder="Poteries" class="input-pop">
+            <label for="" >Images</label>
+            <input @change="sendImage($event)" type="file" class="input-file">
             <label for="">Catégories</label>
             <select class="input-pop">
-                <option class="select-pop">Sélectionez un catégorie</option>
+                <option class="select-pop" selected disabled>choiser le nom de categorie</option>
+                <option v-for="cate in categories" class="select-pop" :key="cate.id_Cate" :value="cate.nom_cate">{{cate.nom_cate}}</option>
             </select>
             <label for="">Prix</label>
-            <input type="number" placeholder="Prix" class="input-pop">
+            <input v-model="poterie.prix" type="number" placeholder="Prix" class="input-pop">
             <label for="">Quantité</label>
-            <input type="number" placeholder="Quantité" class="input-pop">
-            <input type="submit" value="Valider" class="submit-pop">
+            <input v-model="poterie.quantite" type="number" placeholder="Quantité" class="input-pop">
+            <input @click="add_poterie" type="submit" value="Valider" class="submit-pop">
         </form>
         <div class="close-div" v-if="showModal2"  @click="showModal2=false;"></div>
         <form class="popup-all" v-if="showModal2" >
@@ -120,7 +65,7 @@
             <label for="">Images</label>
             <input type="file" class="input-file">
             <label for="">Catégories</label>
-            <select class="input-pop">
+            <select class="input-pop" @click="getAllcategories">
                 <option class="select-pop">Sélectionez un catégorie</option>
             </select>
             <label for="">Prix</label>
@@ -133,16 +78,88 @@
 </template>
 
 <script>
+import axios from "axios";
+import swal from 'sweetalert';
 export default {
     name: "pote-ries",
     data() {
         return {
             showModal1 : false,
-            showModal2 : false
+            showModal2 : false,
+            poteries: [],
+            category: [],
+            categories: [],
+            categorie: {
+                id_Cate: "",
+                nom_cate: ""
+            },
+            poterie: {
+                id_produit: '',
+                Cate_Id: '',
+                nom: '',
+                quantite: '',
+                prix: '',
+                description: '',
+                image: ''
+            },
+            token: localStorage.getItem('token'),
         };
     },
+    created() {
+        this.getAllpoteries();
+    },
+    mounted() {
+        this.getAllcategories();
+    },
     methods: {
-
+        getAllpoteries() {
+            axios.get('http://localhost/Fakhar/Poterie/getAll_produit')
+                .then(response => {
+                    this.poteries = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        add_poterie() {
+            if(this.poterie.nom != "" && this.poterie.image != "" && this.poterie.prix != "" && this.poterie.quantite != "") {
+                axios.post('http://localhost/Fakhar/Poterie/create_produit', {
+                    token: this.token,
+                    nom: this.nom,
+                    image: this.image,
+                    quantite: this.quantite,
+                    prix: this.prix
+                })
+                .then(response => {
+                    if(response){
+                    swal({
+                        title: "Success",
+                        text: "Votre poterie a été ajouté avec succès",
+                        icon: "success",
+                        button: "OK",
+                    });
+                    }
+                    else{
+                        swal({
+                            title: "Error",
+                            text: "Votre poterie n'a pas été ajouté",
+                            icon: "error",
+                            button: "OK",
+                        });
+                    }
+                })
+            }  
+        },
+        getAllcategories(){
+            axios.get('http://localhost/Fakhar/Categorie/getAll_categorie')
+            .then(response => {
+                this.categories = response.data;
+                console.log(this.categories);
+            })
+        },
+        sendImage(event){
+            this.poterie.image = event.target.files[0]
+        }
     }
 }
 </script>

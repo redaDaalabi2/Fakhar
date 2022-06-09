@@ -24,7 +24,7 @@
 
         public function upload_image()
         {
-            $target_path = $_SERVER['DOCUMENT_ROOT'] . '/Fakhar/frontend/src/assets/produit/';
+            $target_path = $_SERVER['DOCUMENT_ROOT'] . 'http://localhost/Fakhar/frontend/public/produit/';
             $imgName = $_POST['imgName'];
             $target_path = $target_path . $imgName;
             if (move_uploaded_file($_FILES['imgFile']['tmp_name'], $target_path)) {
@@ -41,8 +41,27 @@
             $this->produit->quantite = $this->data->quantite;
             $this->produit->prix = $this->data->prix;
             $this->produit->descreption = $this->data->descreption;
-            $this->produit->image = $this->data->image;
+            $this->produit->image = $_FILES[$this->data->image];
             $this->utilisateur->token = $this->data->token;
+
+        // $imag_name = $data['produit_img2']['name'];
+        // $imag_size = $data['produit_img2']['size'];
+        // $tmp_name = $data['produit_img2']['tmp_name'];
+
+        // if ($imag_size > 10250000) {
+        //     $data['produit_img2_err'] = "sorry , your file is too large ";
+        // } else {
+        //     $img_ex = pathinfo($imag_name, PATHINFO_EXTENSION);
+        //     $img_ex_lc = strtolower($img_ex);
+        //     $allowed_exs = array("jpg", "jpeg", "png", "webp");
+        //     if (in_array($img_ex_lc, $allowed_exs)) {
+        //         $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
+        //         $img_upload_path = "img/$new_img_name";
+        //         move_uploaded_file($tmp_name, $img_upload_path);
+        //         $data['produit_img2'] = URLROOT . "/img/$new_img_name";
+        //     } else {
+        //         $data['produit_img2_err'] = "you can't upload files of this type";
+        //     }
 
             $role = $this->utilisateur->get_role_token();
             if ($this->utilisateur->check_token() && $role == "admin") {
@@ -122,10 +141,9 @@
             $rows = $this->produit->getAll();
 
             if ($rows) {
-                echo json_encode(array(
-                    'message' => $rows,
-                    'state' => true
-                ));
+                echo json_encode(
+                    $rows,
+                );
             } else {
                 echo json_encode(array(
                     'message' => 'aucun produit trouvé',

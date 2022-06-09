@@ -7,7 +7,7 @@
             <form @submit.prevent="login_admin" class="login-form" id="login-form">
                 <div class="form-group">
                     <label for="email"><i class="fa-solid fa-envelope"></i></label>
-                    <input type="email" v-model="email" name="email" placeholder="E-mail ou N° de Téléphone">
+                    <input type="email" v-model="email" name="email" placeholder="E-mail">
                 </div>
                 <div class="form-group">
                     <label for="pass"><i class="fa-solid fa-lock"></i></label>

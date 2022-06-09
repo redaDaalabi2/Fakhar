@@ -1,9 +1,9 @@
 <template>
   <div>
-    <NavBar v-if="!affiche"/>
+    <NavBar v-if="!affiche" :setvr="setvr" :showings="showings"/>
     <Sidebar v-else />
-    <router-view />
-    <Footer v-if="!affiche" />
+    <router-view :setvr="setvr" :showings="showings"/>
+    <Footer v-if="!affiche" :setvr="setvr" :showings="showings"/>
   </div>
 </template>
 
@@ -15,7 +15,7 @@
     name: "App",
     data() {
       return {
-        
+        showings: false
       };
     },
     components: {
@@ -23,12 +23,18 @@
       Footer,
       Sidebar
     },
+    methods: {
+      setvr(value) {
+        this.showings = value;
+      }
+    },
     mounted(){
       if (window.localStorage.getItem("token") != null) {
         if (window.localStorage.getItem("role") == "client") {
           this.$store.dispatch("set_role", "client");
           this.$store.dispatch("set_loggedin", true);
           this.$store.dispatch("set_affiche", false);
+          this.setvr(true);
         } else if (window.localStorage.getItem("role") == "admin") {
           this.$store.dispatch("set_role", "admin");
           this.$store.dispatch("set_loggedin", true);

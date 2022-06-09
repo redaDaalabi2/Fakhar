@@ -4,7 +4,8 @@ export default createStore({
   state: {
     affiche: false,
     LoggedIn: false,
-    role: null
+    role: null,
+    ChangePage: false,
   },
   getters: {},
   mutations: {
