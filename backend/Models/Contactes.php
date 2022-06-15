@@ -50,5 +50,14 @@
             $stmt->bindParam(':id', $this->id);
             return $stmt->execute();
         }
+
+        public function count_contacte()
+        {
+            $sql = "SELECT COUNT(*) as counter FROM contact";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $rowCount = $stmt->fetchColumn();
+            return $rowCount;
+        }
     }
 ?>

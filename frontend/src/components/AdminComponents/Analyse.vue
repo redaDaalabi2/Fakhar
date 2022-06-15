@@ -4,19 +4,26 @@
             <div class="content">
                 <div class="col-div-3">
                 <div class="box">
+                    <!-- {{ count_commande }} -->
                     <p>0<br/><span>Nombre de commande effectuée</span></p>
                     <i class="fa-brands fa-first-order"></i>
                 </div>
             </div>
             <div class="col-div-3">
                 <div class="box">
-                    <p>0<br/><span>Nombre de commandes livrées</span></p>
-                    <i class="fa-brands fa-first-order-alt"></i>
+                    <p>{{ count_poterie }}<br/><span>Nombre de poterie</span></p>
+                    <i class="fa-brands fa-product-hunt"></i>
                 </div>
             </div>
             <div class="col-div-3">
                 <div class="box">
-                    <p>0<br/><span>Nombre d'inscription</span></p>
+                    <p>{{ count_client }}<br/><span>Nombre d'inscription</span></p>
+                    <i class="fa fa-users box-icon"></i>
+                </div>
+            </div>
+            <div class="col-div-3">
+                <div class="box">
+                    <p>{{ count_contact }}<br/><span>Nombre de contacte</span></p>
                     <i class="fa fa-users box-icon"></i>
                 </div>
             </div>
@@ -25,15 +32,60 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: "Anal-yse",
     data() {
         return {
-            
+            count_commande: "",
+            count_poterie: "",
+            count_client: "",
+            count_contact: "",
         };
     },
+    mounted() {
+        this.get_number_commande();
+        this.get_number_clients();
+        this.get_number_contact();
+        this.get_number_poterie();
+    },
     methods: {
-
+        get_number_clients(){
+            axios.get('http://localhost/Fakhar/Utilisateur/get_Number_Clients')
+            .then(response => {
+                this.count_client = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        get_number_contact(){
+            axios.get('http://localhost/Fakhar/Contacte/get_Number_Contact')
+            .then(response => {
+                this.count_contact = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        get_number_poterie(){
+            axios.get('http://localhost/Fakhar/Poterie/get_Number_Poterie')
+            .then(response => {
+                this.count_poterie = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        get_number_commande(){
+            axios.get('http://localhost/Fakhar/Commande/get_Number_Commande')
+            .then(response => {
+                this.count_commande = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
     }
 }
 </script>
@@ -63,7 +115,7 @@ body{
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    padding-top: 50px;
+    padding-top: 34px;
     padding-bottom: 84px;
     width: 100%;
     padding-left: 16vh;

@@ -88,13 +88,12 @@
 
         public function get_categorie($id_Cate)
         {
-
             $this->categorie->id_Cate = $id_Cate;
             $row = $this->categorie->get();
             if ($row) {
-                echo json_encode(array('message' => $row, 'state' => true));
+                echo json_encode($row);
             } else {
-                echo json_encode(array('message' => 'Aucune catégorie trouvée', 'state' => false));
+                echo json_encode('Aucune catégorie trouvée');
             }
         }
 

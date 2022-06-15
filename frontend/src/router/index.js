@@ -11,6 +11,8 @@ import CategoriesAdminView from "../views/Dashboard/CategoriesAdminView.vue";
 import BoutiqueView from "../views/Magasin/BoutiqueView.vue";
 import ProfileView from "../views/Magasin/ProfileView.vue";
 import ContactAdminView from "../views/Dashboard/ContactAdminView.vue";
+import CommandeView from "../views/Magasin/CommandeView.vue";
+import Notfound from "../views/Notfound.vue";
 
 const routes = [
   {
@@ -73,6 +75,16 @@ const routes = [
     name: "ContactAdminView",
     component: ContactAdminView
   },
+  {
+    path: "/Magasin/CommandeView",
+    name: "CommandeView",
+    component: CommandeView
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "Notfound",
+    component: Notfound
+  }
 ];
 
 const router = createRouter({

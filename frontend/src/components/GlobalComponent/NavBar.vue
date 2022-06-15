@@ -16,9 +16,9 @@
             <li v-if="!showings">
                 <router-link class="routenav" to="/ContactView">Contact</router-link>
             </li>
-            <li>
+            <!-- <li>
                 <router-link class="routenav" to="/"><i class="fa-solid fa-basket-shopping"></i></router-link>
-            </li>
+            </li> -->
             <li v-if="!showings">
                 <router-link class="routenav registernav" to="/RegisterView">Register</router-link>
             </li>
@@ -106,7 +106,7 @@ nav {
             }
             &:hover {
                 color: $main-color;
-                background-color: #fafafa;
+                background-color: white;
                 font-weight: 500;
             }
             &:hover::before {

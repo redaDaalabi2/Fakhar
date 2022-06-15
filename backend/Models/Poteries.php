@@ -96,6 +96,15 @@
             }
         }
 
+        public function count_poterie()
+        {
+            $sql = "SELECT COUNT(*) as counter FROM produits";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $rowCount = $stmt->fetchColumn();
+            return $rowCount;
+        }
+
         public function getAll_quantite_notNull()
         {
 

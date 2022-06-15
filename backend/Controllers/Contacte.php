@@ -49,6 +49,16 @@
             echo json_encode($contactes);
         }
 
+        public function get_Number_Contact()
+        {
+            $result = $this->contacte->count_contacte();
+            if ($result) {
+                echo json_encode($result);
+            } else {
+                echo json_encode(["error"]);
+            }
+        }
+
         public function delete(){
             $this->contacte->id = $this->data->id;
             if ($this->contacte->delete_contacte()) {

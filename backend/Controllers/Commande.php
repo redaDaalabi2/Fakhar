@@ -174,6 +174,16 @@
             }
         }
 
+        public function get_Number_Commande()
+        {
+            $result = $this->commande->count_commande();
+            if ($result) {
+                echo json_encode($result);
+            } else {
+                echo json_encode(["error"]);
+            }
+        }
+
     }
 
 ?>

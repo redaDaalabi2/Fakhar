@@ -7,11 +7,11 @@
     <section class="main-pro">
         <div class="content">
             <div class="card" v-for="poterie in filteredpoteries" :key="poterie.id_produit">
-                <img v-bind:src="'http://localhost/Fakhar/frontend/public/produit/' + poterie.image" alt="">
+                <img v-bind:src="poterie.image" alt="">
                 <h3 class="card-titre">{{ poterie.nom }}</h3>
                 <div class="desc">
                     <a class="card-butt">
-                        <router-link class="Ajouter" to="/">Ajouter</router-link>
+                        <router-link class="Ajouter" to="/Magasin/CommandeView">Acheter</router-link>
                     </a>
                     <span class="prix">{{ poterie.prix }} DH</span>
                 </div>
@@ -36,7 +36,7 @@ export default {
   props: ["setvr", "showings"],
   data(){
       return{
-          keyword:'',
+        keyword:'',
         poteries: [],
         poterie: {
             id_produit: '',
@@ -72,7 +72,13 @@ export default {
             return poterie.nom.toLowerCase().indexOf(this.keyword.toLowerCase()) > -1;
         });
     }
-  }
+  },
+//   beforeMount(){
+//     let checklocal = localStorage.getItem('token');
+//     if(!checklocal){
+//       this.$router.push('/LoginView');
+//     }
+//   }
 };
 </script>
 
@@ -143,6 +149,12 @@ export default {
         }
         img {
             width: 100%;
+            transform: scale(1);
+            transition: .3s ease-in-out;
+            &:hover {
+                transform: scale(1.1);
+                border-radius: 5px;
+            }
         }
         .desc {
             display: flex;

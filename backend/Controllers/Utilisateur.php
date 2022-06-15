@@ -58,6 +58,17 @@
             }
         }
 
+        //function get_Number_Clients from count_clients function 
+        public function get_Number_Clients()
+        {
+            $result = $this->utilisateur->count_clients();
+            if ($result) {
+                echo json_encode($result);
+            } else {
+                echo json_encode(["error"]);
+            }
+        }
+
         public function register_admin()
         {
 

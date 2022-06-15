@@ -20,7 +20,7 @@
           </div>
           <div class="information__item">
             <div @click="getinfooneclient">
-            <button @click="showModal=true">Modifier</button>
+              <button @click="showModal=true">Modifier</button>
             </div>
           </div>
         </div>
@@ -113,6 +113,7 @@ export default {
       })
       .then((response) => {
         console.log(this.clients.id);
+        this.showModal = false
         if(response){
           swal({
             title: "Modification effectué avec succès",
@@ -133,6 +134,12 @@ export default {
       })
     }
   },
+  beforeMount(){
+    let checklocal = localStorage.getItem('token');
+    if(!checklocal){
+      this.$router.push('/LoginView');
+    }
+  }
 };
 </script>
 
@@ -161,7 +168,7 @@ export default {
   box-shadow: 0px 8px 60px -10px rgba(13,28,39,0.6);
   background: #fff;
   border-radius: 12px;
-  max-width: 700px;
+  max-width: 800px;
   position: relative;
   margin-top: 90px;
   margin-bottom: 10px;
@@ -218,7 +225,7 @@ export default {
     .line {
     height: 3px;
     background-color: $alt-color;
-    width: 36%;
+    width: 31%;
     margin-left: auto;
     margin-right: auto;
     @include mobile {
@@ -262,7 +269,7 @@ export default {
 .submit-pop {
     display: flex;
     margin: 0 auto;
-    background-color: #1d1b31;
+    background-color: $main-color;
     border: 1px solid white;
     color: white;
     border-radius: 5px;
@@ -272,8 +279,8 @@ export default {
     margin-top: 10px;
     &:hover {
         background-color: white;
-        border: 1px solid #1d1b31;
-        color: #1d1b31;
+        border: 1px solid $main-color;
+        color: $main-color;
         cursor: pointer;
     }
 }

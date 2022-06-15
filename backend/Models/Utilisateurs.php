@@ -89,6 +89,14 @@
             return false;
         }
 
+        public function count_clients(){
+            $sql = "SELECT COUNT(*) as counter FROM clients";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            $rowCount = $stmt->fetchColumn();
+            return $rowCount;
+        }
+
         public function create_admin()
         {
             $sql = " INSERT INTO utilisateurs (role, email , motdepasse) VALUES ('admin' , :email , :motdepasse)";

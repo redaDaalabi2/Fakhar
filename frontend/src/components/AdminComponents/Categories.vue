@@ -20,7 +20,7 @@
                         <td>{{ categorie.id_Cate }}</td>
                         <td>{{ categorie.nom_cate }}</td>
                         <td>
-                            <button @click="showModal2=true, update_categorie(categorie.id_Cate)"><i class="fa-solid fa-pen-to-square"></i></button>      
+                            <button @click="showModal2=true, getOnecategorie(categorie.id_Cate)"><i class="fa-solid fa-pen-to-square"></i></button>
                             <button @click="delete_categorie(categorie.id_Cate)"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
@@ -29,17 +29,17 @@
         </div>
         </div>
         <div class="close-div" v-if="showModal1"  @click="showModal1=false;"></div>
-        <form class="popup-all" v-if="showModal1" >
+        <form class="popup-all" v-if="showModal1" @submit.prevent="add_categories">
             <h2>Ajouter une catégorie<a  v-if="showModal1=true" @click="showModal1=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
             <label for="">nom de catégorie</label>
-            <input type="text" v-model="nom_cate" placeholder="Nom" class="input-pop">
-            <input type="submit" value="Valider" class="submit-pop" @click="add_categories">
+            <input required type="text" v-model="nom_cate" placeholder="Nom" class="input-pop">
+            <input type="submit" value="Valider" class="submit-pop">
         </form>
         <div class="close-div" v-if="showModal2"  @click="showModal2=false;"></div>
-        <form class="popup-all" v-if="showModal2" @click="getOnecategorie">
+        <form class="popup-all" v-if="showModal2" @submit.prevent="update_categorie(categorie.id_Cate)">
             <h2>Modifier une catégorie<a  v-if="showModal2=true" @click="showModal2=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
             <label for="">nom de catégorie</label>
-            <input type="text" placeholder="Nom" class="input-pop">
+            <input required type="text" v-model="categorie.nom_cate" placeholder="Nom" class="input-pop">
             <input type="submit" value="Valider" class="submit-pop">
         </form>
     </div>
@@ -62,7 +62,7 @@ export default {
             token: localStorage.getItem("token"),
         };
     },
-    created() {
+    mounted() {
         this.getAllCategories();
     },
     methods: {
@@ -86,7 +86,13 @@ export default {
                         swal("Erreur", "", "error");
                     }
                 })
+                this.categories.push({
+                    id_Cate: this.categories.length + 1,
+                    nom_cate: this.nom_cate
+                });
+                this.showModal1 = false;
             }
+
         },
         delete_categorie(id_Cate){
             axios.post('http://localhost/Fakhar/Categorie/delete_categorie', {
@@ -101,16 +107,34 @@ export default {
                 });
             })
         },
-        getOnecategorie(id){
-            axios.get('http://localhost/Fakhar/Categorie/get_categorie?=id', +id)
+        getOnecategorie(id_Cate){
+            axios.get('http://localhost/Fakhar/Categorie/get_categorie/'+id_Cate)
             .then(response => {
                 this.categorie = response.data;
+                console.log(this.categorie);
             })
         },
-        //update categorie
-        // update_categorie(){
-            
-        // }
+        update_categorie(){
+            axios.put('http://localhost/Fakhar/Categorie/update_categorie', {
+                token: this.token,
+                id_Cate: this.categorie.id_Cate,
+                nom_cate: this.categorie.nom_cate,
+            })
+            .then(response => {
+                if(response){
+                    swal("Catégorie modifiée avec succès", "", "success");
+                }
+                else{
+                    swal("Erreur", "", "error");
+                }
+            })
+            this.categories.forEach((element,index) => {
+                if(element.id_Cate == this.categorie.id_Cate){
+                    this.categories[index] = this.categorie;
+                }
+            });
+            this.showModal2 = false;
+        }
     }
 }
 </script>

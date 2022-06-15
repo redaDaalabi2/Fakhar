@@ -4,6 +4,7 @@
         <div class="table">
         <div class="table_header">
             <p>détails du poteries</p>
+            <!-- <input placeholder="Chercher" v-model="keywords">  -->
             <div><button @click="showModal1=true" class="add_new">+ Ajouter un poterie</button> </div>
         </div>
         <div class="table_section">
@@ -21,11 +22,13 @@
                 <tbody>
                     <tr v-for="poterie in poteries" :key="poterie.id_produit">
                         <td>{{ poterie.nom }}</td>
-                        <td><img v-bind:src="'http://localhost/Fakhar/frontend/public/produit/' + poterie.image" /></td>
+                        <td><img v-bind:src="poterie.image" /></td>
                         <td>cuisine</td>
                         <td>{{ poterie.prix }}</td>
                         <td>{{ poterie.quantite }}</td>
-                        <td><button @click="showModal2=true"><i class="fa-solid fa-pen-to-square"></i></button>  <button><i class="fa-solid fa-trash"></i></button></td>
+                        <td>
+                            <button @click="showModal2=true, getOnepoterie(poterie.id_produit)"><i class="fa-solid fa-pen-to-square"></i></button>  <button @click="delete_poterie(poterie.id_produit)"><i class="fa-solid fa-trash"></i></button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -40,38 +43,41 @@
         </div>
     </div>
     <div class="close-div" v-if="showModal1"  @click="showModal1=false;"></div>
-        <form class="popup-all" v-if="showModal1" >
+        <form class="popup-all" v-if="showModal1" @submit.prevent="add_poterie()">
             <h2>Ajouter un poterie<a  v-if="showModal1=true" @click="showModal1=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
             <label for="">Poteries</label>
-            <input v-model="poterie.nom" type="text" placeholder="Poteries" class="input-pop">
+            <input v-model="poterie.nom" required type="text" placeholder="Poteries" class="input-pop">
             <label for="" >Images</label>
-            <input @change="sendImage($event)" type="file" class="input-file">
+            <input required type="file" class="input-file" @change="sendImage($event)">
             <label for="">Catégories</label>
-            <select class="input-pop">
-                <option class="select-pop" selected disabled>choiser le nom de categorie</option>
-                <option v-for="cate in categories" class="select-pop" :key="cate.id_Cate" :value="cate.nom_cate">{{cate.nom_cate}}</option>
+            <select class="input-pop" v-model="poterie.Cate_Id" required>
+                <option class="select-pop" selected disabled >choiser le nom de categorie</option>
+                <option v-for="cate in categories" class="select-pop" :key="cate.id_Cate" :value="cate.id_Cate">{{cate.nom_cate}}</option>
             </select>
             <label for="">Prix</label>
-            <input v-model="poterie.prix" type="number" placeholder="Prix" class="input-pop">
+            <input v-model="poterie.prix" required type="number" placeholder="Prix" class="input-pop">
+            <label for="">Description</label>
+            <input v-model="poterie.descreption" required type="text" placeholder="Description" class="input-pop">
             <label for="">Quantité</label>
-            <input v-model="poterie.quantite" type="number" placeholder="Quantité" class="input-pop">
-            <input @click="add_poterie" type="submit" value="Valider" class="submit-pop">
+            <input v-model="poterie.quantite" required type="number" placeholder="Quantité" class="input-pop">
+            <input type="submit" class="submit-pop" value="Valider" >
         </form>
         <div class="close-div" v-if="showModal2"  @click="showModal2=false;"></div>
-        <form class="popup-all" v-if="showModal2" >
+        <form class="popup-all" v-if="showModal2" @submit.prevent="update_poterie(poterie.id_produit)">
             <h2>Modifier un poterie<a  v-if="showModal2=true" @click="showModal2=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
             <label for="">Poteries</label>
-            <input type="text" placeholder="Poteries" class="input-pop">
+            <input type="text" v-model="poterie.nom" placeholder="Poteries" class="input-pop">
             <label for="">Images</label>
-            <input type="file" class="input-file">
+            <input type="file" class="input-file" @change="sendImage($event)">
             <label for="">Catégories</label>
-            <select class="input-pop" @click="getAllcategories">
-                <option class="select-pop">Sélectionez un catégorie</option>
+            <select class="input-pop" @click="getAllcategories" v-model="poterie.nom_cate">
+                <option class="select-pop" selected disabled >{{poterie.nom_cate}}</option>
+                <option v-for="cate in categories" class="select-pop" :key="cate.id_Cate" :value="cate.id_Cate">{{cate.nom_cate}}</option>
             </select>
             <label for="">Prix</label>
-            <input type="number" placeholder="Prix" class="input-pop">
+            <input type="number" v-model="poterie.prix" placeholder="Prix" class="input-pop">
             <label for="">Quantité</label>
-            <input type="number" placeholder="Quantité" class="input-pop">
+            <input type="number" v-model="poterie.quantite" placeholder="Quantité" class="input-pop">
             <input type="submit" value="Valider" class="submit-pop">
         </form>
     </div>
@@ -86,6 +92,7 @@ export default {
         return {
             showModal1 : false,
             showModal2 : false,
+            // keywords: '',
             poteries: [],
             category: [],
             categories: [],
@@ -99,17 +106,25 @@ export default {
                 nom: '',
                 quantite: '',
                 prix: '',
-                description: '',
+                descreption: '',
                 image: ''
             },
             token: localStorage.getItem('token'),
         };
     },
-    created() {
-        this.getAllpoteries();
-    },
+    // created() {
+    //     this.getAllpoteries();
+    // },
+    // computed: {
+    //     filteredpoteries() {
+    //         return this.poteries.filter((poterie) => {
+    //             return poterie.nom.toLowerCase().match(this.keywords.toLowerCase());
+    //         });
+    //     }
+    // },
     mounted() {
         this.getAllcategories();
+        this.getAllpoteries();
     },
     methods: {
         getAllpoteries() {
@@ -122,43 +137,103 @@ export default {
                 });
         },
         add_poterie() {
-            if(this.poterie.nom != "" && this.poterie.image != "" && this.poterie.prix != "" && this.poterie.quantite != "") {
-                axios.post('http://localhost/Fakhar/Poterie/create_produit', {
-                    token: this.token,
-                    nom: this.nom,
-                    image: this.image,
-                    quantite: this.quantite,
-                    prix: this.prix
-                })
-                .then(response => {
-                    if(response){
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            }
+            const formData = new FormData();
+            formData.append('token', this.token);
+            formData.append('nom', this.poterie.nom);
+            formData.append('quantite', this.poterie.quantite);
+            formData.append('prix', this.poterie.prix);
+            formData.append('descreption', this.poterie.descreption);
+            formData.append('image', this.poterie.image);
+            formData.append('Cate_Id', this.poterie.Cate_Id);
+            console.log(this.categorie.id_Cate);
+
+            axios.post('http://localhost/Fakhar/Poterie/create_produit',formData,config)
+            .then(response => {
+            console.log(response);
+                if(response){
+                swal({
+                    title: "Success",
+                    text: "Votre poterie a été ajouté avec succès",
+                    icon: "success",
+                    button: "OK",
+                });
+                }
+                else{
                     swal({
-                        title: "Success",
-                        text: "Votre poterie a été ajouté avec succès",
-                        icon: "success",
+                        title: "Error",
+                        text: "Votre poterie n'a pas été ajouté",
+                        icon: "error",
                         button: "OK",
                     });
-                    }
-                    else{
-                        swal({
-                            title: "Error",
-                            text: "Votre poterie n'a pas été ajouté",
-                            icon: "error",
-                            button: "OK",
-                        });
-                    }
-                })
-            }  
+                }
+            })
+            this.showModal1 = false;
+            this.poteries.push(this.poterie);
         },
         getAllcategories(){
             axios.get('http://localhost/Fakhar/Categorie/getAll_categorie')
             .then(response => {
                 this.categories = response.data;
-                console.log(this.categories);
             })
         },
         sendImage(event){
             this.poterie.image = event.target.files[0]
+        },
+        delete_poterie(id_produit){
+            axios.post('http://localhost/Fakhar/Poterie/delete_produit',{
+                id_produit: id_produit,
+                token: this.token
+            }
+            )
+            .then(() => {
+                this.poteries = this.poteries.filter(poterie => {
+                    return poterie.id_produit !== id_produit;
+                });
+            })
+        },
+        getOnepoterie(id_produit){
+            axios.get('http://localhost/Fakhar/Poterie/get_produit/'+id_produit)
+            .then(response => {
+                this.poterie = response.data;
+                // console.log(this.poterie);
+            })
+        },
+        update_poterie(){
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            }
+            const formData = new FormData();
+            formData.append('token', this.token);
+            formData.append('id_produit', this.poterie.id_produit);
+            formData.append('nom', this.poterie.nom);
+            formData.append('quantite', this.poterie.quantite);
+            formData.append('prix', this.poterie.prix);
+            formData.append('descreption', this.poterie.descreption);
+            formData.append('image', this.poterie.image);
+            formData.append('Cate_Id', this.poterie.Cate_Id);
+            console.log(this.categorie.id_Cate);
+            axios.post('http://localhost/Fakhar/Poterie/update_produit',formData,config)
+            .then(response => {
+                if(response){
+                    swal("Catégorie modifiée avec succès", "", "success");
+                }
+                else{
+                    swal("Erreur", "", "error");
+                }
+            })
+            this.poteries.forEach((element,index) => {
+                if(element.id_produit == this.poterie.id_produit){
+                    this.poteries[index] = this.poterie;
+                }
+            });
+            this.showModal2 = false;
         }
     }
 }
@@ -265,6 +340,17 @@ body {
     flex-wrap: wrap;
     padding: 20px;
     background-color: rgb(240, 240, 240);
+    input {
+        padding: 10px 20px;
+        margin: 0 10px;
+        outline: none;
+        border: 1px solid $dash-color;
+        border-radius: 5px;
+        color: $dash-color;
+        @include mobile {
+            padding: 5px 10px;
+        }
+    }
 }
 
 .table_header p {
