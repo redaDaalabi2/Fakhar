@@ -156,6 +156,7 @@ export default {
             .then(response => {
             console.log(response);
                 if(response){
+                this.getAllpoteries();
                 swal({
                     title: "Success",
                     text: "Votre poterie a été ajouté avec succès",
@@ -174,6 +175,7 @@ export default {
             })
             this.showModal1 = false;
             this.poteries.push(this.poterie);
+            this.getAllpoteries();
         },
         getAllcategories(){
             axios.get('http://localhost/Fakhar/Categorie/getAll_categorie')
@@ -191,6 +193,7 @@ export default {
             }
             )
             .then(() => {
+                this.getAllpoteries();
                 this.poteries = this.poteries.filter(poterie => {
                     return poterie.id_produit !== id_produit;
                 });
@@ -222,6 +225,7 @@ export default {
             axios.post('http://localhost/Fakhar/Poterie/update_produit',formData,config)
             .then(response => {
                 if(response){
+                    this.getAllpoteries();
                     swal("Catégorie modifiée avec succès", "", "success");
                 }
                 else{

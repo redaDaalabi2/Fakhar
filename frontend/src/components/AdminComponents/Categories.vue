@@ -80,16 +80,17 @@ export default {
                 })
                 .then(response => {
                     if(response){
+                        this.getAllCategories();
                         swal("Catégorie ajoutée avec succès", "", "success");
                     }
                     else{
                         swal("Erreur", "", "error");
                     }
                 })
-                this.categories.push({
-                    id_Cate: this.categories.length + 1,
-                    nom_cate: this.nom_cate
-                });
+                // this.categories.push({
+                //     id_Cate: this.categories.length + 1,
+                //     nom_cate: this.nom_cate
+                // });
                 this.showModal1 = false;
             }
 
@@ -102,6 +103,7 @@ export default {
             .then(() => {
                 console.log(id_Cate);
                 console.log(this.token);
+                this.getAllCategories();
                 this.categories = this.categories.filter(categorie => {
                     return categorie.id_Cate !== id_Cate;
                 });
@@ -122,6 +124,7 @@ export default {
             })
             .then(response => {
                 if(response){
+                    this.getAllCategories();
                     swal("Catégorie modifiée avec succès", "", "success");
                 }
                 else{

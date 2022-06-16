@@ -89,7 +89,7 @@ export default {
         console.log(error);
       })
     },
-       getinfooneclient(){
+    getinfooneclient(){
       axios.post('http://localhost/Fakhar/Utilisateur/get_info_client_token', {
         token: this.token
       })

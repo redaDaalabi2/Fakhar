@@ -17,7 +17,7 @@
                         <th>Prix (DH)</th>
                         <th>Status</th>
                         <th>livré</th>
-                        <th>Info</th>
+                        <!-- <th>Info</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +30,7 @@
                         <td>20</td>
                         <td>En cour</td>
                         <td>20</td>
-                        <td> <button><i class="fa-solid fa-circle-info"></i></button></td>
+                        <!-- <td> <button><i class="fa-solid fa-circle-info"></i></button></td> -->
                     </tr>               
                 </tbody>
             </table>

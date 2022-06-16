@@ -48,7 +48,7 @@ export default {
                         motdepasse: this.motdepasse,
                     })
                     .then(response => {
-                        if (response.data.state == true) {
+                        if (response.data.state == true && response.data.role != 'admin') {
                             console.log(response.data);
                             localStorage.setItem("token", response.data.token);
                             this.$store.dispatch("set_role", 'client');

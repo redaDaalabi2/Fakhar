@@ -10,7 +10,7 @@
                 <img v-bind:src="poterie.image" alt="">
                 <h3 class="card-titre">{{ poterie.nom }}</h3>
                 <div class="desc">
-                    <a class="card-butt">
+                    <a class="card-butt" @click="getOnepoterie(poterie.id_produit)">
                         <router-link class="Ajouter" to="/Magasin/CommandeView">Acheter</router-link>
                     </a>
                     <span class="prix">{{ poterie.prix }} DH</span>
@@ -32,10 +32,10 @@
 <script>
 import axios from "axios";
 export default {
-  name: "BoutiqueView",
-  props: ["setvr", "showings"],
-  data(){
-      return{
+    name: "BoutiqueView",
+    props: ["setvr", "showings"],
+    data(){
+        return{
         keyword:'',
         poteries: [],
         poterie: {
@@ -47,16 +47,16 @@ export default {
             description: '',
             image: ''
         }
-      }
-  },
-  components: {
-    
-  },
-  created() {
+        }
+    },
+    components: {
+
+    },
+    mounted() {
     this.getAllpoteries();
-  },
-  methods: {
-    getAllpoteries() {
+    },
+    methods: {
+        getAllpoteries() {
         axios.get('http://localhost/Fakhar/Poterie/getAll_produit')
             .then(response => {
                 this.poteries = response.data;
@@ -64,21 +64,28 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+        },
+        getOnepoterie(id_produit){
+            axios.get('http://localhost/Fakhar/Poterie/get_produit/'+id_produit)
+            .then(response => {
+                this.poterie = response.data;
+                localStorage.setItem('id_produit', this.poterie.id_produit);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
     },
-  },
-  computed : {
-    filteredpoteries() {
-        return this.poteries.filter((poterie) => {
-            return poterie.nom.toLowerCase().indexOf(this.keyword.toLowerCase()) > -1;
-        });
+    computed : {
+        filteredpoteries() {
+            return this.poteries.filter((poterie) => {
+                return poterie.nom.toLowerCase().indexOf(this.keyword.toLowerCase()) > -1;
+            });
+        }
+    },
+    beforeMount(){
+        localStorage.removeItem('id_produit');
     }
-  },
-//   beforeMount(){
-//     let checklocal = localStorage.getItem('token');
-//     if(!checklocal){
-//       this.$router.push('/LoginView');
-//     }
-//   }
 };
 </script>
 
@@ -141,6 +148,7 @@ export default {
         box-shadow: 0 5px 25px rgb(1 1 1 / 15%);
         margin: 15px;
         transition: 0.7s ease;
+        overflow: hidden;
         .card-titre {
             text-align: center;
             color: $alt-color;
