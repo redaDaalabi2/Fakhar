@@ -53,7 +53,7 @@ export default {
 
     },
     mounted() {
-    this.getAllpoteries();
+        this.getAllpoteries();
     },
     methods: {
         getAllpoteries() {
@@ -70,6 +70,7 @@ export default {
             .then(response => {
                 this.poterie = response.data;
                 localStorage.setItem('id_produit', this.poterie.id_produit);
+                this.$router.go('/Magasin/CommandeView');
             })
             .catch(error => {
                 console.log(error);
@@ -82,9 +83,6 @@ export default {
                 return poterie.nom.toLowerCase().indexOf(this.keyword.toLowerCase()) > -1;
             });
         }
-    },
-    beforeMount(){
-        localStorage.removeItem('id_produit');
     }
 };
 </script>
@@ -108,6 +106,12 @@ export default {
         @include mobile {
             padding: 5px 10px;
         }
+        @media (max-width: 440px) {
+            padding: 10px 75px;
+        }
+    }
+    ::placeholder {
+        text-align: center;
     }
     .compte {
         background-color:$main-color;
@@ -129,11 +133,14 @@ export default {
             padding: 5px 10px;
             font-weight: normal;
         }
+        @media (max-width: 440px) {
+            font-size: 14px;
+            padding: 10px 110px;
+        }
     }
-    @media (max-width: 430px) {
+    @media (max-width: 440px) {
         flex-direction: column;
         gap: 10px;
-        
     }
 }
 .content {

@@ -300,11 +300,23 @@ export default {
     background-color: white;
     padding: 0px 35px 20px;
     border-radius: 10px;
+    @include mobile {
+      top: 22%;
+      right: 12%;
+    }
+    @include tablet {
+      top: 22%;
+      right: 4%;
+    }
 }
 .popup-all h2{
     font-size: 20px;
     text-align: center;
     padding: 20px;
+    @include mobile {
+      font-size: 12px;
+      margin-left: 30px;
+    }
 }
 .input-pop{
     padding: 15px 480px 15px 10px;
@@ -313,6 +325,9 @@ export default {
     border-color: #b1b1b1;
     margin-bottom: 20px;
     width: 100%;
+    @include mobile {
+      padding: 15px 15px 15px 10px;
+    }
 }
 .select-pop {
     padding: 15px 480px 15px 10px;
@@ -329,9 +344,15 @@ export default {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
+  @include mobile {
+    font-size: 12px;
+  }
 }
 .close {
-    float: right;
-    cursor: pointer;
+  float: right;
+  cursor: pointer;
+  @include mobile {
+    margin-left: 60px;
+  }
 }
 </style>

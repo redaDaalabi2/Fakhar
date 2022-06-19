@@ -19,6 +19,8 @@
                     <button class="counter">{{ poterie.quantite }}</button>
                     <button id="" class="click" v-on:click.prevent="increment">+</button>
                   </div>
+                  <h4 class="prix_totale">Prix de livraison : </h4>
+                  <h4 class="prix_totale">Prix Totale : <span>{{ poterie.quantite * poterie.prix }} DH</span></h4>
                 </div>
               </div>
               </div>
@@ -41,7 +43,8 @@ export default {
     name: "CommandeView",
     data(){
         return{
-          id_produit: localStorage.getItem('id_produit'),
+          quantite: '',
+          prix_totale: '',
           poterie: {
             id_produit: '',
             Cate_Id: '',
@@ -54,24 +57,32 @@ export default {
         }
     },
     beforeMount(){
-        let checklocal = localStorage.getItem('token');
-        if(!checklocal){
-        this.$router.push('/LoginView');
-        }
+      this.securepage();
     },
     methods:{
+     securepage(){
+        let checklocal = localStorage.getItem('token');
+        if(!checklocal){
+          this.$router.push('/LoginView');
+        }
+     },
       increment () {
-        this.poterie.quantite++;
+        if(this.poterie.quantite < this.quantite){
+          this.poterie.quantite++;
+        }
       },
       decrement () {
         if(this.poterie.quantite > 0){
-          this.poterie.quantite-- ;
+          if(this.poterie.quantite > 1){
+            this.poterie.quantite--;
+          }
         }
       },
-      getOnepoterie(){
-        axios.get('http://localhost/Fakhar/Poterie/get_produit/'+ this.id_produit)
+      getOnepoterie(id){
+        axios.get('http://localhost/Fakhar/Poterie/get_produit/'+ id)
         .then(response => {
-            this.poterie = response.data;
+          this.poterie = response.data;
+          this.quantite = this.poterie.quantite;
         })
         .catch(error => {
             console.log(error);
@@ -79,7 +90,8 @@ export default {
       },
     },
     mounted(){
-      this.getOnepoterie();
+      this.getOnepoterie(localStorage.getItem('id_produit'));
+      localStorage.removeItem('id_produit');
     }
 }
 </script>
@@ -96,6 +108,12 @@ export default {
     height: auto;
     min-height: 100vh;
     padding-top: 100px;
+  }
+  @include tablet {
+    overflow-x: hidden;
+  }
+  @include mobile {
+    overflow-x: hidden;
   }
   .profile-card {
     width: 100%;
@@ -144,6 +162,16 @@ export default {
           margin-left: 25px;
           margin-top: 25px;
           border-radius: 5px;
+        @include tablet {
+          margin-top: 0px;
+          margin-left: 0px;
+        }
+        @include mobile {
+          margin-top: 0px;
+          margin-left: 0px;
+          width: 100%;
+          max-width: none;
+        }
         }
       }
       .detaille_poterie {
@@ -153,9 +181,12 @@ export default {
         flex-direction: column;
         margin-top: 20px;
         margin-left: 66px;
-        gap: 50px;
+        gap: 25px;
         .quantite {
           margin-bottom: 20px;
+        }
+        .prix_totale {
+          margin-top: 20px;
         }
         .increment {
           .counter{
@@ -188,7 +219,7 @@ export default {
         }
         p {
           @include mobile{
-            font-size: 9px;
+            font-size: 10px;
           }
         }
         button {

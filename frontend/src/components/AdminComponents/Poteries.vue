@@ -4,7 +4,7 @@
         <div class="table">
         <div class="table_header">
             <p>détails du poteries</p>
-            <!-- <input placeholder="Chercher" v-model="keywords">  -->
+            <input placeholder="Chercher" v-model="keywords"> 
             <div><button @click="showModal1=true" class="add_new">+ Ajouter un poterie</button> </div>
         </div>
         <div class="table_section">
@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="poterie in poteries" :key="poterie.id_produit">
+                    <tr v-for="poterie in filteredpoteries" :key="poterie.id_produit">
                         <td>{{ poterie.nom }}</td>
                         <td><img v-bind:src="poterie.image" /></td>
                         <td>cuisine</td>
@@ -92,7 +92,7 @@ export default {
         return {
             showModal1 : false,
             showModal2 : false,
-            // keywords: '',
+            keywords: '',
             poteries: [],
             category: [],
             categories: [],
@@ -115,13 +115,13 @@ export default {
     // created() {
     //     this.getAllpoteries();
     // },
-    // computed: {
-    //     filteredpoteries() {
-    //         return this.poteries.filter((poterie) => {
-    //             return poterie.nom.toLowerCase().match(this.keywords.toLowerCase());
-    //         });
-    //     }
-    // },
+    computed: {
+        filteredpoteries() {
+            return this.poteries.filter((poterie) => {
+                return poterie.nom.toLowerCase().match(this.keywords.toLowerCase());
+            });
+        }
+    },
     mounted() {
         this.getAllcategories();
         this.getAllpoteries();
