@@ -4,8 +4,7 @@
             <div class="content">
                 <div class="col-div-3">
                 <div class="box">
-                    <!-- {{ count_commande }} -->
-                    <p>0<br/><span>Nombre de commande effectuée</span></p>
+                    <p>{{ count_commande }}<br/><span>Nombre de commande effectuée</span></p>
                     <i class="fa-brands fa-first-order"></i>
                 </div>
             </div>

@@ -96,18 +96,34 @@ export default {
 
         },
         delete_categorie(id_Cate){
-            axios.post('http://localhost/Fakhar/Categorie/delete_categorie', {
-                id_Cate: id_Cate,
-                token: this.token,
+            swal({
+                title: "Êtes-vous sûr ?",
+                text: "Une fois supprimé, vous ne pourrez plus récupérer ce categorie !",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
             })
-            .then(() => {
-                console.log(id_Cate);
-                console.log(this.token);
-                this.getAllCategories();
-                this.categories = this.categories.filter(categorie => {
-                    return categorie.id_Cate !== id_Cate;
-                });
-            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Pouf ! Votre categorie a été supprimé !", {
+                    icon: "success",
+                    });
+                    axios.post('http://localhost/Fakhar/Categorie/delete_categorie', {
+                        id_Cate: id_Cate,
+                        token: this.token,
+                    })
+                    .then(() => {
+                        console.log(id_Cate);
+                        console.log(this.token);
+                        this.getAllCategories();
+                        this.categories = this.categories.filter(categorie => {
+                            return categorie.id_Cate !== id_Cate;
+                        });
+                    })
+                } else {
+                    swal("Votre categorie est en sécurité !");
+                }
+            });
         },
         getOnecategorie(id_Cate){
             axios.get('http://localhost/Fakhar/Categorie/get_categorie/'+id_Cate)

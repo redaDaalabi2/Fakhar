@@ -23,7 +23,7 @@
                     <tr v-for="poterie in filteredpoteries" :key="poterie.id_produit">
                         <td>{{ poterie.nom }}</td>
                         <td><img v-bind:src="poterie.image" /></td>
-                        <td>cuisine</td>
+                        <td>{{ poterie.nom_cate }}</td>
                         <td>{{ poterie.prix }}</td>
                         <td>{{ poterie.quantite }}</td>
                         <td>
@@ -187,17 +187,34 @@ export default {
             this.poterie.image = event.target.files[0]
         },
         delete_poterie(id_produit){
-            axios.post('http://localhost/Fakhar/Poterie/delete_produit',{
-                id_produit: id_produit,
-                token: this.token
-            }
-            )
-            .then(() => {
-                this.getAllpoteries();
-                this.poteries = this.poteries.filter(poterie => {
-                    return poterie.id_produit !== id_produit;
-                });
+            swal({
+                title: "Êtes-vous sûr ?",
+                text: "Une fois supprimé, vous ne pourrez plus récupérer ce poterie !",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
             })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Pouf ! Votre poterie a été supprimé !", {
+                    icon: "success",
+                    });
+                    axios.post('http://localhost/Fakhar/Poterie/delete_produit',{
+                        id_produit: id_produit,
+                        token: this.token
+                    }
+                    )
+                    .then(() => {
+                        console.log(id_produit)
+                        this.getAllpoteries();
+                        this.poteries = this.poteries.filter(poterie => {
+                            return poterie.id_produit !== id_produit;
+                        });
+                    })
+                } else {
+                    swal("Votre poterie est en sécurité !");
+                }
+            });
         },
         getOnepoterie(id_produit){
             axios.get('http://localhost/Fakhar/Poterie/get_produit/'+id_produit)
@@ -238,6 +255,8 @@ export default {
                 }
             });
             this.showModal2 = false;
+            this.poteries.push(this.poterie);
+            this.getAllpoteries();
         }
     }
 }

@@ -28,86 +28,48 @@
             $this->data = json_decode(file_get_contents("php://input"));
         }
 
-        public function create()
+        //public function create commande 
+        public function create_commande()
         {
             $this->utilisateur->token = $this->data->token;
-
             if ($this->utilisateur->check_token()) {
-
-                $this->produit->id_produit = $this->data->id_produit;
-                $quantite = $this->data->quantite;
-                $resultProduit = $this->produit->get();
-
-                if (!isset($quantite) || empty($quantite)) {
-                    $quantite = 1;
-                }
-                if ($resultProduit['quantite'] >= $quantite) {
-                    $this->linecmd->quantite = $quantite;
-                    $this->linecmd->prix_totale = $resultProduit['prix'] * $quantite;
-                    $this->linecmd->id_produit = $resultProduit['id_produit'];
-                    $infoClient = $this->utilisateur->get_info_token();
-                    $this->commande->Client_Id = $infoClient['id'];
-                    $resultCommande = $this->commande->last_commande();
-
-                    if (empty($resultCommande) || $resultCommande[0]['statut'] != "en cour") {
-                        $this->commande->statut = "en cour";
-                        if ($this->commande->create()) {
-                            $resultCommande = $this->commande->last_commande();
-                            $this->linecmd->id_com = $resultCommande[0]['id_com'];
-                            if ($this->linecmd->create()) {
-                                echo json_encode(array(
-                                    'message' => 'La commande a été créée et le produit a été ajouté à votre panier',
-                                    'state' => true
-                                ));
-                                $this->produit->quantite = $resultProduit['quantite'] - $quantite;
-                                $this->produit->update_quantite();
-                            } else {
-                                echo json_encode(array(
-                                    'message' => 'La commande a été créée et le produit n`a pas été ajouté à votre panier',
-                                    'state' => false
-                                ));
-                            }
-                        } else {
-                            echo json_encode(array(
-                                'message' => 'la commande n`a pas été créée',
-                                'state' => false
-                            ));
-                        }
-                    } else {
-                        $this->linecmd->com_Id = $resultCommande[0]['com_Id'];
-                        if (empty($this->linecmd->product_existe())) {
-                            if ($this->linecmd->create()) {
-                                echo json_encode(array(
-                                    'message' => 'Le produit a été ajouté à votre panier',
-                                    'state' => true
-                                ));
-                                $this->produit->quantite = $resultProduit['quantite'] - $quantite;
-                                $this->produit->update_quantite();
-                            } else {
-                                echo json_encode(array(
-                                    'message' => 'Le produit n`a pas été ajouté à votre panier',
-                                    'state' => false
-                                ));
-                            }
-                        } else {
-                            echo json_encode(array(
-                                'message' => 'le produit existe déjà dans votre panier',
-                                'state' => false
-                            ));
-                        }
-                    }
+                $this->commande->Client_Id = $this->data->Client_Id;
+                $this->commande->statut = $this->data->statut;
+                $this->commande->prix_totale = $this->data->prix_totale;
+                $this->commande->produit_Id = $this->data->produit_Id;
+                if ($this->commande->create()) {
+                    echo json_encode(array("message" => "commande created"));
                 } else {
-                    echo json_encode(array(
-                        'message' => 'Stoke ne suffit pas',
-                        'state' => false
-                    ));
-                }
-            } else {
-
-                echo json_encode(array(
-                    'authentification' => false
-                ));
+                    echo json_encode(array("message" => "commande not created"));
+                }   
             }
+        }
+
+        //public function getAll commande
+        public function getAll_commande()
+        {
+            $this->utilisateur->token = $this->data->token;
+            if ($this->utilisateur->check_token()) {
+                $commandes = $this->commande->getAll();
+                echo json_encode($commandes);
+            }
+        }
+
+        public function getOne_commande($id_com)
+        {
+            $this->commande->id_com = $id_com;
+            $row = $this->commande->getOne_commande();
+            if ($row) {
+                echo json_encode($row);
+            } else {
+                echo json_encode('aucun commande trouvé');
+            }
+        }
+
+        public function get_commande_with_client_and_product()
+        {
+            $commandes = $this->commande->getAll_commande();
+            echo json_encode($commandes);
         }
 
         public function showCommande()

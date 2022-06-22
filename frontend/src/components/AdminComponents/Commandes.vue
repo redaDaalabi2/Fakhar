@@ -15,26 +15,43 @@
                         <th>Date</th>
                         <th>adresse</th>
                         <th>Prix (DH)</th>
+                        <th>Quantite</th>
                         <th>Status</th>
-                        <th>livré</th>
-                        <!-- <th>Info</th> -->
+                        <th>Info</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Reda</td>
-                        <td>0691520892</td>
-                        <td>05/062022</td>
-                        <td>20 Rue Oualili Qu Lebiare Safi</td>
-                        <td>20</td>
-                        <td>En cour</td>
-                        <td>20</td>
-                        <!-- <td> <button><i class="fa-solid fa-circle-info"></i></button></td> -->
+                    <tr v-for="commande in commandes" :key="commande.id_com">
+                        <td>{{ commande.id_com }}</td>
+                        <td>{{ commande.prenom }}</td>
+                        <td>{{ commande.Telephone }}</td>
+                        <td>{{ commande.date }}</td>
+                        <td>{{ commande.adresse }}</td>
+                        <td>{{ commande.prix }}</td>
+                        <td>{{ commande.quantite }}</td>
+                        <td>{{ commande.statut }}</td>
+                        <td> <button @click="showModal=true, getOneCommande(commande.id_com)"><i class="fa-solid fa-circle-info"></i></button></td>
                     </tr>               
                 </tbody>
             </table>
         </div>
+        <div class="close-div" v-if="showModal"  @click="showModal=false;"></div>
+        <form class="popup-all" v-if="showModal">
+            <h2>détail de commande<a  v-if="showModal=true" @click="showModal=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
+            <label class="input-pop">id de la commande : {{ commande.id_com }}</label>
+            <label class="input-pop">la date de la commande : {{ commande.date }}</label>
+            <label class="input-pop">livraison : {{ commande.statut }}</label>
+            <label class="input-pop">prix totale : {{ commande.prix_totale }}</label>
+            <label class="input-pop">nom de poterie : {{ commande.nom }}</label>
+            <label class="input-pop">nom de client : {{ commande.prenom }}</label>
+            <label class="input-pop">le genre de client : {{ commande.genre }}</label>
+            <label class="input-pop">N° de Telephone : {{ commande.Telephone }}</label>
+            <label class="input-pop">adresse de client : {{ commande.adresse }}</label>
+            <label class="input-pop">quantite : {{ commande.quantite }}</label>
+            <label class="input-pop">prix de poterie: {{ commande.prix }}</label>
+            <label class="input-pop">descreption de poterie : {{ commande.descreption }}</label>
+            <img class="imagepopup" v-bind:src="commande.image">
+        </form>
         <div class="pagination">
             <div><i class="fa-solid fa-angles-left"></i></div>
             <div><i class="fa-solid fa-chevron-left"></i></div>
@@ -44,26 +61,126 @@
             <div><i class="fa-solid fa-angles-right"></i></div>
         </div>
     </div>
-    
     </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
     name: "Comma-ndes",
     data() {
         return {
-            
+            showModal : false,
+            commandes: [],
+            commande: {
+                id_com: "",
+                Client_Id: "",
+                date: "",
+                status: "",
+                prix_totale: "",
+                produit_Id: "",
+                id_Client: "",
+                nom: "",
+                prenom: "",
+                genre: "",
+                Telephone: "",
+                adresse: "",
+                id_produit: "",
+                Cate_Id: "",
+                quantite: "",
+                prix: "",
+                descreption: "",
+                image: ""
+            },
         };
     },
     methods: {
-
-    }
+        getAllcommande(){
+            axios.get('http://localhost/Fakhar/Commande/get_commande_with_client_and_product')
+            .then(response => {
+                this.commandes = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        getOneCommande(id_com){
+            axios.get('http://localhost/Fakhar/Commande/getOne_commande/'+id_com)
+            .then(response => {
+                this.commande = response.data;
+                console.log(this.commande);
+            })
+        }
+    },
+    mounted() {
+        this.getAllcommande();
+    },
 }
 </script>
 
 <style scoped lang="scss">
 @import "@/sass/_mixin.scss";
+.imagepopup {
+    width: 500px !important;
+}
+.submit-pop {
+    display: flex;
+    margin: 0 auto;
+    background-color: #1d1b31;
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 15px 40px;
+    margin-top: 10px;
+    &:hover {
+        background-color: white;
+        border: 1px solid #1d1b31;
+        color: #1d1b31;
+        cursor: pointer;
+    }
+}
+.close-div{
+    width: 100%;
+    height: 100%;
+    background-color: #1b1b1b42;
+    position: fixed;
+    z-index: 88;
+    top: 0%;
+}
+.popup-all{
+    position: fixed;
+    top: 13%;
+    right: 25%;
+    z-index: 99;
+    background-color: white;
+    padding: 0px 35px 20px;
+    border-radius: 10px;
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+.popup-all h2{
+    font-size: 20px;
+    text-align: center;
+    padding: 20px;
+}
+.input-pop{
+    padding: 15px 40px 15px 10px;
+    border-radius: 10px;
+    border: solid 1px;
+    border-color: #b1b1b1;
+    margin-bottom: 20px;
+}
+.popup-all label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.close {
+    float: right;
+    cursor: pointer;
+}
 .titre {
     padding-block: 20px;
     text-align: center;
@@ -185,9 +302,9 @@ tr:hover td {
     cursor: pointer;
 }
 
-::placeholder {
-    color: #0298cf;
-}
+// ::placeholder {
+//     color: #0298cf;
+// }
 
 ::-webkit-scrollbar {
     height: 5px;

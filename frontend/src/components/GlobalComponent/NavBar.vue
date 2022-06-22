@@ -137,10 +137,10 @@ nav {
     }
 }
 .mainmenu div{
-    width: 50px;
+    width: 45px;
     height: 5px;
     background-color: black;
-    margin-block: 10px;
+    margin-block: 8px;
     display: none;
     @media (max-width: 900px){
         display: block;

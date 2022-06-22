@@ -11,6 +11,7 @@
         public $date;
         public $statut;
         public $prix_totale;
+        public $produit_Id;
 
         public function __construct($db)
         {
@@ -27,7 +28,7 @@
 
         public function create()
         {
-            $sql = "INSERT INTO commandes (statut, Client_Id) VALUES ('$this->statut','$this->Client_Id')";
+            $sql = "INSERT INTO commandes (Client_Id, statut, prix_totale, produit_Id) VALUES ('$this->Client_Id','$this->statut','$this->prix_totale','$this->produit_Id')";
             $stmt = $this->conn->prepare($sql);
             if ($stmt->execute()) {
                 return true;
@@ -66,6 +67,49 @@
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
+
+        public function getAll()
+        {
+           $sql = "SELECT * FROM commandes";
+           $stmt = $this->conn->prepare($sql);
+           $stmt->execute();
+           return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function getAll_commande()
+        {
+            $sql = "SELECT * FROM commandes , clients , produits WHERE commandes.Client_id = clients.id_Client and commandes.produit_Id = produits.id_produit";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function getOne_commande()
+        {
+            $sql = "SELECT * FROM commandes , clients , produits WHERE id_com = :id_com and commandes.Client_id = clients.id_Client and commandes.produit_Id = produits.id_produit";
+
+            // Clean data
+            $this->id_com = htmlspecialchars(strip_tags($this->id_com));
+
+            // Prepare query
+            $stmt = $this->conn->prepare($sql);
+
+            // Bind data
+            $stmt->bindParam(':id_com', $this->id_com);
+
+            if ($stmt->execute()) {
+                $rowCount = $stmt->rowCount();
+                if ($rowCount == 0) {
+                    return false;
+                } else {
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    return $row;
+                }
+            } else {
+                return false;
+            }
+        }
+
         public function update_validate()
         {
             $sql = "UPDATE commandes SET statut = 'Non-livré' , date = '$this->date' WHERE id_com=$this->id_com";

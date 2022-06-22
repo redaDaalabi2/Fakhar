@@ -45,6 +45,7 @@
 
 <script>
 import axios from 'axios';
+import swal from 'sweetalert';
 export default {
     name: "Con-tacte",
     data() {
@@ -70,15 +71,31 @@ export default {
             .catch(err => console.log(err));
         },
         delete_contacte(id){
-            axios.post('http://localhost/Fakhar/Contacte/delete',{
-                id: id
-            }
-            )
-            .then(() => {
-                this.contactes = this.contactes.filter(contacte => {
-                    return contacte.id !== id;
-                });
+            swal({
+                title: "Êtes-vous sûr ?",
+                text: "Une fois supprimé, vous ne pourrez plus récupérer ce contact",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
             })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Pouf ! Votre contact a été supprimé !", {
+                    icon: "success",
+                    });
+                    axios.post('http://localhost/Fakhar/Contacte/delete',{
+                        id: id
+                    }
+                    )
+                    .then(() => {
+                        this.contactes = this.contactes.filter(contacte => {
+                            return contacte.id !== id;
+                        });
+                    })
+                } else {
+                    swal("Votre contact est en sécurité !");
+                }
+            });
         },
     }
 }

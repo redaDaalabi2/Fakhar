@@ -3,7 +3,7 @@
     <section class="login">
         <div class="login-form">
             <div class="content-form" >
-            <h2 class="form-title">Admin login</h2>
+            <h2 class="form-title">Login admin</h2>
             <form @submit.prevent="login_admin" class="login-form" id="login-form">
                 <div class="form-group">
                     <label for="email"><i class="fa-solid fa-envelope"></i></label>
