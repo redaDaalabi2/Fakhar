@@ -66,7 +66,7 @@ export default {
                         button: "ok",
                     });
                 })
-                this.$router.push('/');
+                this.$router.push('/Magasin/BoutiqueView');
             }
             {
                 swal({

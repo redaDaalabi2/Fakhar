@@ -27,7 +27,7 @@
                         <td>{{ poterie.prix }}</td>
                         <td>{{ poterie.quantite }}</td>
                         <td>
-                            <button @click="showModal2=true, getOnepoterie(poterie.id_produit)"><i class="fa-solid fa-pen-to-square"></i></button>  <button @click="delete_poterie(poterie.id_produit)"><i class="fa-solid fa-trash"></i></button>
+                            <button @click="showModal2=true, getOnepoterie(poterie.id_produit)"><i class="fa-solid fa-pen-to-square"></i></button>  <button @click="delete_poterie(poterie.id_produit)"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path fill="currentColor" d="M7 3h2a1 1 0 0 0-2 0ZM6 3a2 2 0 1 1 4 0h4a.5.5 0 0 1 0 1h-.564l-1.205 8.838A2.5 2.5 0 0 1 9.754 15H6.246a2.5 2.5 0 0 1-2.477-2.162L2.564 4H2a.5.5 0 0 1 0-1h4Zm1 3.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0v-5ZM9.5 6a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 1 0v-5a.5.5 0 0 0-.5-.5Z"/></svg></button>
                         </td>
                     </tr>
                 </tbody>
@@ -76,6 +76,8 @@
             </select>
             <label for="">Prix</label>
             <input type="number" v-model="poterie.prix" placeholder="Prix" class="input-pop">
+            <label for="">Description</label>
+            <input type="text" v-model="poterie.descreption" placeholder="Description" class="input-pop">
             <label for="">Quantité</label>
             <input type="number" v-model="poterie.quantite" placeholder="Quantité" class="input-pop">
             <input type="submit" value="Valider" class="submit-pop">

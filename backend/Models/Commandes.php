@@ -79,7 +79,7 @@
 
         public function getAll_commande()
         {
-            $sql = "SELECT * FROM commandes , clients , produits WHERE commandes.Client_id = clients.id_Client and commandes.produit_Id = produits.id_produit";
+            $sql = "SELECT * FROM commandes , clients , produits WHERE commandes.Client_id = clients.id_Client and commandes.produit_Id = produits.id_produit ORDER BY id_com DESC";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

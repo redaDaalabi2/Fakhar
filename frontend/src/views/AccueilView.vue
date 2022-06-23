@@ -21,7 +21,7 @@
                 <div class="card-line"></div>
                 <img src="../assets/produit/arabesque.jpg" alt="">
                 <a class="card-butt">
-                    <router-link class="Voir" to="/LoginView">Voir plus</router-link>
+                    <router-link class="Voir" to="/Magasin/BoutiqueView">Voir plus</router-link>
                 </a>
             </div>
             <div class="card">
@@ -29,7 +29,7 @@
                 <div class="card-line"></div>
                 <img src="../assets/produit/kerra.jpg" alt="">
                 <a class="card-butt">
-                    <router-link class="Voir" to="/LoginView">Voir plus</router-link>
+                    <router-link class="Voir" to="/Magasin/BoutiqueView">Voir plus</router-link>
                 </a>
             </div>
             <div class="card">
@@ -37,7 +37,7 @@
                 <div class="card-line"></div>
                 <img src="../assets/produit/berrad-beldi.jpg" alt="">
                 <a class="card-butt">
-                    <router-link class="Voir" to="/LoginView">Voir plus</router-link>
+                    <router-link class="Voir" to="/Magasin/BoutiqueView">Voir plus</router-link>
                 </a>
             </div>
             <div class="card">
@@ -45,7 +45,7 @@
                 <div class="card-line"></div>
                 <img src="../assets/produit/ghoraf-siala.jpg" alt="">
                 <a class="card-butt">
-                    <router-link class="Voir" to="/LoginView">Voir plus</router-link>
+                    <router-link class="Voir" to="/Magasin/BoutiqueView">Voir plus</router-link>
                 </a>
             </div>
             <div class="card">
@@ -53,7 +53,7 @@
                 <div class="card-line"></div>
                 <img src="../assets/produit/tatoue-berbere.jpg" alt="">
                 <a class="card-butt">
-                    <router-link class="Voir" to="/LoginView">Voir plus</router-link>
+                    <router-link class="Voir" to="/Magasin/BoutiqueView">Voir plus</router-link>
                 </a>
             </div>
             <div class="card">
@@ -61,7 +61,7 @@
                 <div class="card-line"></div>
                 <img src="../assets/produit/tradi.jpg" alt="">
                 <a class="card-butt">
-                    <router-link class="Voir" to="/LoginView">Voir plus</router-link>
+                    <router-link class="Voir" to="/Magasin/BoutiqueView">Voir plus</router-link>
                 </a>
             </div>
         </div>
