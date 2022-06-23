@@ -10,6 +10,7 @@
         public $Client_Id;
         public $date;
         public $statut;
+        public $quantite_com;
         public $prix_totale;
         public $produit_Id;
 
@@ -28,7 +29,7 @@
 
         public function create()
         {
-            $sql = "INSERT INTO commandes (Client_Id, statut, prix_totale, produit_Id) VALUES ('$this->Client_Id','$this->statut','$this->prix_totale','$this->produit_Id')";
+            $sql = "INSERT INTO commandes (Client_Id, statut, quantite_com, prix_totale, produit_Id) VALUES ('$this->Client_Id','$this->statut','$this->quantite_com','$this->prix_totale','$this->produit_Id')";
             $stmt = $this->conn->prepare($sql);
             if ($stmt->execute()) {
                 return true;
@@ -112,16 +113,24 @@
 
         public function update_validate()
         {
-            $sql = "UPDATE commandes SET statut = 'Non-livré' , date = '$this->date' WHERE id_com=$this->id_com";
+            $sql = "UPDATE commandes SET statut = 'livré' WHERE id_com=$this->id_com";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
         }
-        public function update_prix()
+
+        public function update_statut()
         {
-            $sql = "UPDATE commandes SET  prix_totale = $this->prix_totale WHERE id_com=$this->id_com";
+            $sql = "UPDATE commandes SET statut = 'livré' WHERE id_com=$this->id_com";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
         }
+
+        // public function update_prix()
+        // {
+        //     $sql = "UPDATE commandes SET  prix_totale = $this->prix_totale WHERE id_com=$this->id_com";
+        //     $stmt = $this->conn->prepare($sql);
+        //     $stmt->execute();
+        // }
 
         public function count_commande()
         {

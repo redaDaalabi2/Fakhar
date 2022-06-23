@@ -16,7 +16,8 @@
                         <th>adresse</th>
                         <th>Prix (DH)</th>
                         <th>Quantite</th>
-                        <th>Status</th>
+                        <th>Nom poterie</th>
+                        <th>Statut</th>
                         <th>Info</th>
                     </tr>
                 </thead>
@@ -27,8 +28,9 @@
                         <td>{{ commande.Telephone }}</td>
                         <td>{{ commande.date }}</td>
                         <td>{{ commande.adresse }}</td>
-                        <td>{{ commande.prix }}</td>
-                        <td>{{ commande.quantite }}</td>
+                        <td>{{ commande.prix_totale }}</td>
+                        <td>{{ commande.quantite_com }}</td>
+                        <td>{{ commande.nom }}</td>
                         <td>{{ commande.statut }}</td>
                         <td> <button @click="showModal=true, getOneCommande(commande.id_com)"><i class="fa-solid fa-circle-info"></i></button></td>
                     </tr>               
@@ -39,18 +41,20 @@
         <form class="popup-all" v-if="showModal">
             <h2>détail de commande<a  v-if="showModal=true" @click="showModal=false;"><i class="fa fa-times close" aria-hidden="true"></i></a></h2>
             <label class="input-pop">id de la commande : {{ commande.id_com }}</label>
-            <label class="input-pop">la date de la commande : {{ commande.date }}</label>
-            <label class="input-pop">livraison : {{ commande.statut }}</label>
-            <label class="input-pop">prix totale : {{ commande.prix_totale }}</label>
-            <label class="input-pop">nom de poterie : {{ commande.nom }}</label>
             <label class="input-pop">nom de client : {{ commande.prenom }}</label>
             <label class="input-pop">le genre de client : {{ commande.genre }}</label>
             <label class="input-pop">N° de Telephone : {{ commande.Telephone }}</label>
             <label class="input-pop">adresse de client : {{ commande.adresse }}</label>
-            <label class="input-pop">quantite : {{ commande.quantite }}</label>
-            <label class="input-pop">prix de poterie: {{ commande.prix }}</label>
+            <label class="input-pop">la date de la commande : {{ commande.date }}</label>
+            <label class="input-pop">livraison : {{ commande.statut }}</label>
+            <label class="input-pop">quantite de commande : {{ commande.quantite_com }}</label>
+            <label class="input-pop">prix totale : {{ commande.prix_totale }} DH</label>
+            <label class="input-pop">nom de poterie : {{ commande.nom }}</label>
+            <label class="input-pop">Le reste de la quantité ( stock ) : {{ commande.quantite }}</label>
+            <label class="input-pop">prix de poterie: {{ commande.prix }} DH</label>
             <label class="input-pop">descreption de poterie : {{ commande.descreption }}</label>
             <img class="imagepopup" v-bind:src="commande.image">
+            <input class="submit-pop" value="Livré" @click="update_statut()">
         </form>
         <div class="pagination">
             <div><i class="fa-solid fa-angles-left"></i></div>
@@ -76,7 +80,8 @@ export default {
                 id_com: "",
                 Client_Id: "",
                 date: "",
-                status: "",
+                statut: "",
+                quantite_com: "",
                 prix_totale: "",
                 produit_Id: "",
                 id_Client: "",
@@ -92,6 +97,7 @@ export default {
                 descreption: "",
                 image: ""
             },
+            token: localStorage.getItem('token'),
         };
     },
     methods: {
@@ -110,6 +116,19 @@ export default {
                 this.commande = response.data;
                 console.log(this.commande);
             })
+        },
+        update_statut(){
+            axios.put('http://localhost/Fakhar/Commande/update_statut_commande',{
+                token: this.token,
+                id_com: this.commande.id_com,
+            })
+            .then(() => {
+                this.getAllcommande();
+                this.showModal = false;
+            })
+            .catch(error => {
+                console.log(error);
+            })
         }
     },
     mounted() {
@@ -122,6 +141,7 @@ export default {
 @import "@/sass/_mixin.scss";
 .imagepopup {
     width: 500px !important;
+    border-radius: 10px;
 }
 .submit-pop {
     display: flex;
@@ -132,8 +152,9 @@ export default {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    padding: 15px 40px;
+    padding: 15px 0px;
     margin-top: 10px;
+    text-align: center;
     &:hover {
         background-color: white;
         border: 1px solid #1d1b31;

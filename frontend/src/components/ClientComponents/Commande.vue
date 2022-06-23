@@ -28,7 +28,7 @@
                 <p class="">
                   {{ poterie.descreption }}
                 </p>
-                <button class="commander" @click="commander()">Commander</button> 
+                <button class="commander" @click="commander(), update_quantite()">Commander</button> 
               </div>
           </div>
           </div>
@@ -59,6 +59,7 @@ export default {
             Client_Id: '',
             date: '',
             statut: '',
+            quantite_com: '',
             prix_totale: '',
             produit_Id: '',
           },
@@ -104,7 +105,21 @@ export default {
         })
         .then(response => {
           this.id_client = response.data.id;
-          console.log(this.id_client)
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
+      update_quantite(){
+        axios.put('http://localhost/Fakhar/Commande/update_quantite_poterie',{
+          token: this.token,
+          id_produit: this.poterie.id_produit,
+          quantite: this.quantite - this.poterie.quantite,
+        })
+        .then((response) => {
+          console.log(this.quantite)
+          console.log(this.poterie.quantite)
+          console.log(response.data)
         })
         .catch(error => {
           console.log(error);
@@ -115,6 +130,7 @@ export default {
           token: this.token,
           Client_Id : this.id_client,
           statut: 'en cours',
+          quantite_com: this.poterie.quantite,
           prix_totale: this.poterie.quantite * this.poterie.prix + 2,
           produit_Id : this.poterie.id_produit,
         })

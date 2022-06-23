@@ -21,7 +21,6 @@
             // instantiate utilisateur object
             $this->produit = new Poteries($this->db);
             $this->commande = new Commandes($this->db);
-            $this->linecmd = new Line_commandes($this->db);
             $this->utilisateur = new Utilisateurs($this->db);
 
             // getdata
@@ -35,6 +34,7 @@
             if ($this->utilisateur->check_token()) {
                 $this->commande->Client_Id = $this->data->Client_Id;
                 $this->commande->statut = $this->data->statut;
+                $this->commande->quantite_com = $this->data->quantite_com;
                 $this->commande->prix_totale = $this->data->prix_totale;
                 $this->commande->produit_Id = $this->data->produit_Id;
                 if ($this->commande->create()) {
@@ -143,6 +143,43 @@
                 echo json_encode($result);
             } else {
                 echo json_encode(["error"]);
+            }
+        }
+
+        public function update_quantite_poterie(){
+            $this->utilisateur->token = $this->data->token;
+            $this->produit->id_produit = $this->data->id_produit;
+            $this->produit->quantite = $this->data->quantite;
+            if ($this->utilisateur->check_token()) {
+                if ($this->produit->update_quantite()){
+                    echo json_encode(array(
+                        'message' => 'quantite modifier avec succès',
+                        'state' => true
+                    ));
+                }else{
+                    echo json_encode(array(
+                    'message' => 'quantite n`a pas été modifier',
+                    'state' => false
+                    ));
+                }
+            }
+        }
+
+        public function update_statut_commande(){
+            $this->utilisateur->token = $this->data->token;
+            $this->commande->id_com = $this->data->id_com;
+            if ($this->utilisateur->check_token()) {
+                if ($this->commande->update_statut()) {
+                    echo json_encode(array(
+                        'message' => 'statut modifier avec succès',
+                        'state' => true
+                    ));
+                } else {
+                    echo json_encode(array(
+                        'message' => 'statut n`a pas été modifier',
+                        'state' => false
+                    ));
+                }
             }
         }
 
