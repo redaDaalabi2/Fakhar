@@ -1,13 +1,15 @@
 # How to run this project
 
-## Step 1 
+## Step 1
+
 ```
 1 . Put this project in xampp/htdocs
 2 . Create a database called fakhar
 3 . Go to backend/Config/ and import fakhar.sql to your database
-4 . final
 ```
+
 ## Step 2
+
 ```
 If you have already installed node.js go to step 3
 
@@ -15,6 +17,7 @@ If you have already installed node.js go to step 3
 2 . Install Node.js and NPM from Browser. Once the installer finishes downloading, launch it. ...
 3 . Verify Installation.
 ```
+
 ## Step 3
 
 ```
@@ -31,6 +34,7 @@ Use this command to install the necessary dependencies
 Email : admin@gmail.com
 Password : admin
 ```
+
 ## Contact Us
 
 ```
@@ -40,4 +44,3 @@ Email : daalabireda@gmail.com
 Linkedin : Reda DAALABI
 
 ```
-
