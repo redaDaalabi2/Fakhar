@@ -5,6 +5,7 @@
 1 . Put this project in xampp/htdocs
 2 . Create a database called fakhar
 3 . Go to backend/Config/ and import fakhar.sql to your database
+4 . final
 ```
 ## Step 2
 ```
